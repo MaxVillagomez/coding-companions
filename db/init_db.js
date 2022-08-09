@@ -28,7 +28,7 @@ async function createTables() {
     await client.query(`
         CREATE TABLE users (
           id SERIAL PRIMARY KEY,
-          username VARCHAR(255) UNIQUE NOT NULL,
+          email VARCHAR(255) UNIQUE NOT NULL,
           password VARCHAR(255) NOT NULL
         );
 
@@ -60,15 +60,15 @@ async function createInitialUsers() {
   try {
     console.log("Creating new users...")
     const max = await createUser({
-      username: "maxvi",
+      email: "maxvi@maxvi.com",
       password: "password"
     });
     const austin = await createUser({
-      username: "austin",
+      email: "austin@austin.com",
       password: "password"
     });
     const luke = await createUser({
-      username: "luke",
+      email: "luke@luke.com",
       password: "password"
     });
     console.log("Finished creating users...");
