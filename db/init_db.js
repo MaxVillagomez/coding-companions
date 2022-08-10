@@ -6,6 +6,8 @@ const {
   getAllProducts,
   getUserById,
   getUserByEmail,
+  getProductById,
+  getProductByName,
   // declare your model imports here
   // for example, User
 } = require("./");
@@ -115,6 +117,8 @@ async function createInitialProducts() {
   }
 }
 
+
+
 async function buildTables() {
   try {
     client.connect();
@@ -162,6 +166,14 @@ async function testDB() {
     console.log("Calling getUserByEmail at maxvi@maxvi.com");
     const maxEmail = await getUserByEmail("maxvi@maxvi.com");
     console.log("Get User By Email Result: ", maxEmail);
+
+    console.log("Calling get product by Id at 1");
+    const product1 = await getProductById(1);
+    console.log("Get Product by Id Result: ", product1);
+
+    console.log("Calling getProductByName at Stevie Wonder Coding Comapnion")
+    const product2 = await getProductByName("Stevie Wonder Coding Companion");
+    console.log("Get Product By Name Result: ", product2);
   } catch (error) {
     console.error("Error testing database");
     throw error;
