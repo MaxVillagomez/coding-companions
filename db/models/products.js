@@ -36,7 +36,43 @@ async function getAllProducts() {
   }
 }
 
+async function getProductById(productId) {
+  if (!productId){
+    return;
+  }
+  try {
+    const { rows: [product] } = await client.query(`
+    SELECT *
+    FROM products
+    WHERE id = ${productId}
+    `);
+    return(product);
+  } catch (error) {
+    console.error("Failed to get product by Id");
+    throw error;
+  }
+}
+
+async function getProductByName(name) {
+  if(!name){
+    return;
+  }
+  try {
+    const { rows: [product]} = await client.query(`
+    SELECT *
+    FROM products
+    WHERE name = $1
+    `, [name]);
+    return product;
+  } catch (error) {
+    console.error("Failed to get product by name")
+    throw error;
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
+  getProductById,
+  getProductByName,
 };

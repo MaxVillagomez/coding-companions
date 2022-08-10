@@ -14,6 +14,14 @@ server.use(morgan('dev'));
 // handle application/json requests
 server.use(express.json());
 
+server.use((req, res, next) => {
+  console.log("<__Body Logger START__>");
+  console.log(req.body);
+  console.log("<__Body Logger END__>");
+
+  next();
+}); 
+
 // here's our static files
 const path = require('path');
 server.use(express.static(path.join(__dirname, 'build')));
@@ -43,6 +51,12 @@ const handle = server.listen(PORT, async () => {
     console.error('Database is closed for repairs!\n', error);
   }
 });
+
+server.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.send({ error: err.name, message: err.message, name: err.name });
+});
+
 
 // export server and handle for routes/*.test.js
 module.exports = { server, handle };
