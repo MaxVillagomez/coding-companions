@@ -12,6 +12,8 @@ const {
   getAllCategories,
   createIndividualCartItem,
   getAllIndividualCartItems,
+  createCartOrder,
+  getAllCartOrders,
 
   // declare your model imports here
   // for example, User
@@ -167,6 +169,26 @@ async function createInitialCategories(){
   }
 }
 
+async function createInitialCartOrders(){
+  try {
+    const cart1 = await createCartOrder({
+      userId: 1,
+      active: true
+    });
+    const cart2 = await createCartOrder({
+      userId: 2,
+      active: false
+    });
+    const cart3 = await createCartOrder({
+      userId: 3,
+      active: true
+    });
+  } catch (error) {
+    console.error("Error creating initial cart orders...");
+    throw error;
+  }
+}
+
 async function createInitialIndividualCartItem(){
   try {
     console.log("Creating intial items");
@@ -207,6 +229,7 @@ async function buildTables() {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCategories();
+    await createInitialCartOrders();
     await createInitialIndividualCartItem();
     // build tables in correct order
   } catch (error) {
@@ -259,9 +282,14 @@ async function testDB() {
     const categories = await getAllCategories();
     console.log("Get all Categories Result: ", categories );
 
+    console.log("Calling all cart orders");
+    const cart = await getAllCartOrders();
+    console.log("Get all Cart Orders Result: ", cart);
+
     console.log("Calling all Individual Items");
     const item = await getAllIndividualCartItems();
     console.log("Get all Individual Items Result: ", item);
+    
   } catch (error) {
     console.error("Error testing database");
     throw error;
