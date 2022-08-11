@@ -16,7 +16,9 @@ async function dropTables() {
   try {
     console.log("Starting to drop tables...");
     await client.query(`
-    DROP TABLE IF EXISTS orders;
+    DROP TABLE IF EXISTS categories;
+    DROP TABLE IF EXISTS individual_cart_items;
+    DROP TABLE IF EXISTS cart_orders;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
     
@@ -43,15 +45,34 @@ async function createTables() {
           name VARCHAR(255) UNIQUE NOT NULL,
           description VARCHAR(255) NOT NULL,
           photo VARCHAR(255),
-          price MONEY
+          quantity INTEGER,
+          price NUMERIC(8, 2) NOT NULL
         );
 
-        CREATE TABLE orders (
+        CREATE TABLE cart_orders (
           id SERIAL PRIMARY KEY,
-          "customerId" INTEGER REFERENCES users(id) NOT NULL,
-          total MONEY NOT NULL,
-          "productId" INTEGER REFERENCES products(id) NOT NULL
+          user_id INTEGER REFERENCES users(id),
+          active BOOLEAN DEFAULT true
+         );
+
+
+         CREATE TABLE categories (
+          id SERIAL PRIMARY KEY,
+          name VARCHAR(255) UNIQUE NOT NULL,
+          description VARCHAR(255),
+          products_included INTEGER REFERENCES products(id)
         );
+  
+        CREATE TABLE individual_cart_items (
+          id SERIAL PRIMARY KEY,
+          product_id INTEGER REFERENCES products(id),
+          price_at_purchase NUMERIC(8,2), 
+          cart_id INTEGER REFERENCES cart_orders(id),
+          quantity INTEGER
+        );
+  
+          
+       
     
     `);
 
@@ -93,7 +114,8 @@ async function createInitialProducts() {
       description:
         "The hero of Metropolis is here to help manage your anger while you code!",
       photo: "https://m.media-amazon.com/images/I/617cdhho1iL._AC_SY606_.jpg",
-      price: 12.99,
+      quantity: 5,
+      price: 14.99,
     });
 
     const product2 = await createProduct({
@@ -102,7 +124,8 @@ async function createInitialProducts() {
         "He may be blind, but the power of his music soothes even the most frustrated engineers.",
       photo:
         "https://media.gamestop.com/i/gamestop/11161780/Funko-POP-Heroes-Wonder-Woman-80th-Anniversary-Wonder-Woman-A-Twist-of-Fate-Vinyl-Figure",
-      price: 14.99,
+      quantity: 13,
+      price: 123456.99,
     });
 
     const product3 = await createProduct({
@@ -110,7 +133,8 @@ async function createInitialProducts() {
       description:
         "This slippery little animal will show you the secrets to clean code!",
       photo: "https://m.media-amazon.com/images/I/619b8I+RK5L._AC_SY550_.jpg",
-      price: 9.99,
+      quantity: 2,
+      price: 13.99,
     });
   } catch (error) {
     console.error("Error creating initial products");
@@ -170,8 +194,8 @@ async function testDB() {
     const product1 = await getProductById(1);
     console.log("Get Product by Id Result: ", product1);
 
-    console.log("Calling getProductByName at Stevie Wonder Coding Comapnion");
-    const product2 = await getProductByName("Stevie Wonder Coding Companion");
+    console.log("Calling getProductByName at Wonder Woman Coding Comapnion");
+    const product2 = await getProductByName("Wonder Woman Coding Companion");
     console.log("Get Product By Name Result: ", product2);
   } catch (error) {
     console.error("Error testing database");
