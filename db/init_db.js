@@ -100,7 +100,8 @@ async function createInitialProducts() {
       name: "Wonder Woman Coding Companion",
       description:
         "He may be blind, but the power of his music soothes even the most frustrated engineers.",
-      photo: "https://media.gamestop.com/i/gamestop/11161780/Funko-POP-Heroes-Wonder-Woman-80th-Anniversary-Wonder-Woman-A-Twist-of-Fate-Vinyl-Figure",
+      photo:
+        "https://media.gamestop.com/i/gamestop/11161780/Funko-POP-Heroes-Wonder-Woman-80th-Anniversary-Wonder-Woman-A-Twist-of-Fate-Vinyl-Figure",
       price: 14.99,
     });
 
@@ -116,8 +117,6 @@ async function createInitialProducts() {
     throw error;
   }
 }
-
-
 
 async function buildTables() {
   try {
@@ -171,7 +170,7 @@ async function testDB() {
     const product1 = await getProductById(1);
     console.log("Get Product by Id Result: ", product1);
 
-    console.log("Calling getProductByName at Stevie Wonder Coding Comapnion")
+    console.log("Calling getProductByName at Stevie Wonder Coding Comapnion");
     const product2 = await getProductByName("Stevie Wonder Coding Companion");
     console.log("Get Product By Name Result: ", product2);
   } catch (error) {
