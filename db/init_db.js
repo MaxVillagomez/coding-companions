@@ -92,23 +92,23 @@ async function createInitialProducts() {
       name: "Superman Coding Companion",
       description:
         "The hero of Metropolis is here to help manage your anger while you code!",
-      photo: "www.supermanfunkopic.com",
+      photo: "https://m.media-amazon.com/images/I/617cdhho1iL._AC_SY606_.jpg",
       price: 12.99,
     });
 
     const product2 = await createProduct({
-      name: "Stevie Wonder Coding Companion",
+      name: "Wonder Woman Coding Companion",
       description:
         "He may be blind, but the power of his music soothes even the most frustrated engineers.",
-      photo: "www.somepicofsteviewonder.com",
+      photo: "https://media.gamestop.com/i/gamestop/11161780/Funko-POP-Heroes-Wonder-Woman-80th-Anniversary-Wonder-Woman-A-Twist-of-Fate-Vinyl-Figure",
       price: 14.99,
     });
 
     const product3 = await createProduct({
-      name: "Sly Fox Coding Companion",
+      name: "Rocket Coding Companion",
       description:
         "This slippery little animal will show you the secrets to clean code!",
-      photo: "www.picturesoffox.com",
+      photo: "https://m.media-amazon.com/images/I/619b8I+RK5L._AC_SY550_.jpg",
       price: 9.99,
     });
   } catch (error) {
