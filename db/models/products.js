@@ -1,17 +1,17 @@
 const client = require("../client");
 
-async function createProduct({ name, description, photo, price }) {
+async function createProduct({ name, description, photo, quantity, price }) {
   try {
     const {
       rows: [product],
     } = await client.query(
       `
-            INSERT INTO products(name, description, photo, price)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO products(name, description, photo, quantity, price)
+            VALUES ($1, $2, $3, $4, $5)
             ON CONFLICT (name) DO NOTHING
             RETURNING *;
         `,
-      [name, description, photo, price]
+      [name, description, photo, quantity, price]
     );
 
     return product;
@@ -37,16 +37,18 @@ async function getAllProducts() {
 }
 
 async function getProductById(productId) {
-  if (!productId){
+  if (!productId) {
     return;
   }
   try {
-    const { rows: [product] } = await client.query(`
+    const {
+      rows: [product],
+    } = await client.query(`
     SELECT *
     FROM products
     WHERE id = ${productId}
     `);
-    return(product);
+    return product;
   } catch (error) {
     console.error("Failed to get product by Id");
     throw error;
@@ -54,18 +56,23 @@ async function getProductById(productId) {
 }
 
 async function getProductByName(name) {
-  if(!name){
+  if (!name) {
     return;
   }
   try {
-    const { rows: [product]} = await client.query(`
+    const {
+      rows: [product],
+    } = await client.query(
+      `
     SELECT *
     FROM products
     WHERE name = $1
-    `, [name]);
+    `,
+      [name]
+    );
     return product;
   } catch (error) {
-    console.error("Failed to get product by name")
+    console.error("Failed to get product by name");
     throw error;
   }
 }
