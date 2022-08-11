@@ -8,6 +8,11 @@ const {
   getUserByEmail,
   getProductById,
   getProductByName,
+  createCategory,
+  getAllCategories,
+  createIndividualCartItem,
+  getAllIndividualCartItems,
+
   // declare your model imports here
   // for example, User
 } = require("./");
@@ -48,7 +53,7 @@ async function createTables() {
           quantity INTEGER,
           price NUMERIC(8, 2) NOT NULL
         );
-
+  
         CREATE TABLE cart_orders (
           id SERIAL PRIMARY KEY,
           user_id INTEGER REFERENCES users(id),
@@ -70,8 +75,6 @@ async function createTables() {
           cart_id INTEGER REFERENCES cart_orders(id),
           quantity INTEGER
         );
-  
-          
        
     
     `);
@@ -142,6 +145,58 @@ async function createInitialProducts() {
   }
 }
 
+async function createInitialCategories(){
+  try {
+    console.log("Creating initial categories!")
+    
+    const category1 = await createCategory({
+      name: "Heros",
+      description: "Coding Companions of all your favorite heros!",
+      productsIncluded: 1
+    });
+
+    const category2 = await createCategory({
+      name: "Villains",
+      description: "Coding Companions of all your mischevieous villains!",
+      productsIncluded: 3
+    });
+    console.log("Finished creating initial categories!");
+  } catch (error) {
+    console.error("Error creating initial categories");
+    throw error;
+  }
+}
+
+async function createInitialIndividualCartItem(){
+  try {
+    console.log("Creating intial items");
+    const item1 = await createIndividualCartItem({
+      productId: 1,
+      priceAtPurchase: 14.99,
+      cartId: 1,
+      quantity: 1
+    });
+    
+    const item2 = await createIndividualCartItem({
+      productId: 2,
+      priceAtPurchase: 123456.99,
+      cartId: 1,
+      quantity: 2
+    });
+
+    const item3 = createIndividualCartItem({
+      productId: 3,
+      priceAtPurchase: 13.99,
+      cartId: 2,
+      quantity: 1
+    });
+    console.log("Finished creating initial items")
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 async function buildTables() {
   try {
     client.connect();
@@ -151,6 +206,8 @@ async function buildTables() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
+    await createInitialCategories();
+    await createInitialIndividualCartItem();
     // build tables in correct order
   } catch (error) {
     throw error;
@@ -197,6 +254,14 @@ async function testDB() {
     console.log("Calling getProductByName at Wonder Woman Coding Comapnion");
     const product2 = await getProductByName("Wonder Woman Coding Companion");
     console.log("Get Product By Name Result: ", product2);
+
+    console.log("Calling get all Categories");
+    const categories = await getAllCategories();
+    console.log("Get all Categories Result: ", categories );
+
+    console.log("Calling all Individual Items");
+    const item = await getAllIndividualCartItems();
+    console.log("Get all Individual Items Result: ", item);
   } catch (error) {
     console.error("Error testing database");
     throw error;
