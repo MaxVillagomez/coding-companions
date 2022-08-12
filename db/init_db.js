@@ -14,6 +14,8 @@ const {
   getAllIndividualCartItems,
   createCartOrder,
   getAllCartOrders,
+  getCategoryById,
+  getCategoryByName,
 
   // declare your model imports here
   // for example, User
@@ -289,6 +291,14 @@ async function testDB() {
     console.log("Calling all Individual Items");
     const item = await getAllIndividualCartItems();
     console.log("Get all Individual Items Result: ", item);
+
+    console.log("Calling get category by id");
+    const categoryId = await getCategoryById(1);
+    console.log("Get Category by Id Result: ", categoryId);
+
+    console.log("Calling get category by name at Villains");
+    const category2Name = await getCategoryByName("Villains");
+    console.log("Get category by name result", category2Name);
     
   } catch (error) {
     console.error("Error testing database");
