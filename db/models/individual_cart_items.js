@@ -1,12 +1,15 @@
 const client = require("../client");
+const {getProductById} = require('./products');
 
-async function createIndividualCartItem({productId, priceAtPurchase, cartId, quantity}) {
+async function createIndividualCartItem({productId, cartId, quantity}) {
     try {
+        const {price} = await getProductById(productId);
+        
         const {rows: [item]} = await client.query(`
         INSERT INTO individual_cart_items(product_id, price_at_purchase, cart_id, quantity)
         VALUES ($1, $2, $3, $4)
         RETURNING *;
-        `, [productId, priceAtPurchase, cartId, quantity]);
+        `, [productId, price, cartId, quantity]);
         return item;
     } catch (error) {
         console.error(error);
@@ -60,6 +63,8 @@ async function getIndividualCartByCartId(cartId){
         throw error;
     }
 }
+
+
 
 module.exports = {
     createIndividualCartItem,

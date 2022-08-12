@@ -21,6 +21,7 @@ const {
   updateProduct,
   destroyProduct,
 
+
   // declare your model imports here
   // for example, User
 } = require("./");
@@ -208,24 +209,22 @@ async function createInitialIndividualCartItem() {
     console.log("Creating intial items");
     const item1 = await createIndividualCartItem({
       productId: 1,
-      priceAtPurchase: 14.99,
       cartId: 1,
       quantity: 1,
     });
 
     const item2 = await createIndividualCartItem({
       productId: 2,
-      priceAtPurchase: 123456.99,
       cartId: 1,
       quantity: 2,
     });
 
     const item3 = createIndividualCartItem({
       productId: 3,
-      priceAtPurchase: 13.99,
       cartId: 2,
       quantity: 1,
     });
+
     console.log("Finished creating initial items");
   } catch (error) {
     console.error(error);
@@ -320,6 +319,12 @@ async function testDB() {
     const cartId1 = await getIndividualCartByCartId(2);
     console.log("Get Individual Cart by Cart Id Result: ", cartId1);
 
+  const item5 = await createIndividualCartItem({
+      productId: 3,
+      cartId: 2,
+      quantity: 1,
+    });
+
     console.log("Calling update Product at ID 3");
     const update = await updateProduct(3, {
       name: "Updated rocket name",
@@ -328,6 +333,12 @@ async function testDB() {
       price: 99.99,
     });
     console.log("Updated Product Result", update);
+
+    const item4 = await createIndividualCartItem({
+      productId: 3,
+      cartId: 2,
+      quantity: 1,
+    });
 
     console.log("Calling delete product at ID 4");
     const remove = await destroyProduct(4);
