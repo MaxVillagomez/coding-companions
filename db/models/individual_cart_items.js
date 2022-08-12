@@ -27,7 +27,43 @@ async function getAllIndividualCartItems(){
     }
 }
 
+async function getIndividualCartById(id) {
+    if(!id) {
+        return;
+    }
+    try {
+        const { rows: [ cart ]} = await client.query(`
+        SELECT *
+        FROM individual_cart_items
+        WHERE id = ${id}
+        `);
+        return cart;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+ }
+
+async function getIndividualCartByCartId(cartId){
+    if(!cartId) {
+        return;
+    }
+    try {
+        const { rows: [ cart ]} = await client.query(`
+        SELECT *
+        FROM individual_cart_items
+        WHERE cart_id=${cartId}
+        `);
+        return cart;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createIndividualCartItem,
     getAllIndividualCartItems,
+    getIndividualCartById,
+    getIndividualCartByCartId,
 }
