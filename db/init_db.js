@@ -18,6 +18,8 @@ const {
   getCategoryByName,
   getIndividualCartById,
   getIndividualCartByCartId,
+  updateProduct,
+  destroyProduct,
 
   // declare your model imports here
   // for example, User
@@ -145,26 +147,34 @@ async function createInitialProducts() {
       quantity: 2,
       price: 13.99,
     });
+
+    const product4 = await createProduct({
+      name: "This one needs to be deleted",
+      description: "DELETE ME PLEASE",
+      photo: "https://m.media-amazon.com/images/I/619b8I+RK5L._AC_SY550_.jpg",
+      quantity: 2,
+      price: 13.99,
+    });
   } catch (error) {
     console.error("Error creating initial products");
     throw error;
   }
 }
 
-async function createInitialCategories(){
+async function createInitialCategories() {
   try {
-    console.log("Creating initial categories!")
-    
+    console.log("Creating initial categories!");
+
     const category1 = await createCategory({
       name: "Heros",
       description: "Coding Companions of all your favorite heros!",
-      productsIncluded: 1
+      productsIncluded: 1,
     });
 
     const category2 = await createCategory({
       name: "Villains",
       description: "Coding Companions of all your mischevieous villains!",
-      productsIncluded: 3
+      productsIncluded: 3,
     });
     console.log("Finished creating initial categories!");
   } catch (error) {
@@ -173,19 +183,19 @@ async function createInitialCategories(){
   }
 }
 
-async function createInitialCartOrders(){
+async function createInitialCartOrders() {
   try {
     const cart1 = await createCartOrder({
       userId: 1,
-      active: true
+      active: true,
     });
     const cart2 = await createCartOrder({
       userId: 2,
-      active: false
+      active: false,
     });
     const cart3 = await createCartOrder({
       userId: 3,
-      active: true
+      active: true,
     });
   } catch (error) {
     console.error("Error creating initial cart orders...");
@@ -193,30 +203,30 @@ async function createInitialCartOrders(){
   }
 }
 
-async function createInitialIndividualCartItem(){
+async function createInitialIndividualCartItem() {
   try {
     console.log("Creating intial items");
     const item1 = await createIndividualCartItem({
       productId: 1,
       priceAtPurchase: 14.99,
       cartId: 1,
-      quantity: 1
+      quantity: 1,
     });
-    
+
     const item2 = await createIndividualCartItem({
       productId: 2,
       priceAtPurchase: 123456.99,
       cartId: 1,
-      quantity: 2
+      quantity: 2,
     });
 
     const item3 = createIndividualCartItem({
       productId: 3,
       priceAtPurchase: 13.99,
       cartId: 2,
-      quantity: 1
+      quantity: 1,
     });
-    console.log("Finished creating initial items")
+    console.log("Finished creating initial items");
   } catch (error) {
     console.error(error);
     throw error;
@@ -284,7 +294,7 @@ async function testDB() {
 
     console.log("Calling get all Categories");
     const categories = await getAllCategories();
-    console.log("Get all Categories Result: ", categories );
+    console.log("Get all Categories Result: ", categories);
 
     console.log("Calling all cart orders");
     const cart = await getAllCartOrders();
@@ -309,7 +319,19 @@ async function testDB() {
     console.log("Calling get Individual Cart by Cart Id at 1");
     const cartId1 = await getIndividualCartByCartId(2);
     console.log("Get Individual Cart by Cart Id Result: ", cartId1);
-    
+
+    console.log("Calling update Product at ID 3");
+    const update = await updateProduct(3, {
+      name: "Updated rocket name",
+      description: "Updated rocket description",
+      quantity: 100,
+      price: 99.99,
+    });
+    console.log("Updated Product Result", update);
+
+    console.log("Calling delete product at ID 4");
+    const remove = await destroyProduct(4);
+    console.log("Delete result", remove);
   } catch (error) {
     console.error("Error testing database");
     throw error;

@@ -77,9 +77,56 @@ async function getProductByName(name) {
   }
 }
 
+const updateProduct = async (id, fields = {}) => {
+  const keys = Object.keys(fields);
+
+  const setString = keys.map((key, index) => `"${key}"=$${index + 1}`);
+
+  if (setString.length === 0) {
+    return;
+  }
+
+  const {
+    rows: [product],
+  } = await client.query(
+    `
+    UPDATE products
+    SET ${setString}
+    WHERE id=${id}
+    RETURNING *;
+  `,
+    Object.values(fields)
+  );
+
+  return product;
+};
+
+async function destroyProduct(id) {
+  try {
+    const {
+      rows: [removed],
+    } = await client.query(
+      `
+      DELETE FROM products
+      WHERE id=$1
+      RETURNING *;
+    
+    
+    `,
+      [id]
+    );
+    return removed;
+  } catch (error) {
+    console.error("Error deleting products");
+    throw error;
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
   getProductByName,
+  updateProduct,
+  destroyProduct,
 };
