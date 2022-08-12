@@ -1,7 +1,15 @@
 // grab our db client connection to use with our adapters
 const client = require("../client");
 const bcrypt = require("bcrypt");
-async function createUser({ email, password }) {
+async function createUser({
+  email,
+  password,
+  streetAddress,
+  city,
+  state,
+  zip,
+  isAdmin,
+}) {
   const SALT_COUNT = 10;
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
   try {
@@ -9,12 +17,12 @@ async function createUser({ email, password }) {
       rows: [user],
     } = await client.query(
       `
-    INSERT INTO users(email, password)
-    VALUES ($1, $2)
+    INSERT INTO users(email, password, street_address, city, state, zip, is_admin)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
     ON CONFLICT (email) DO NOTHING
     RETURNING id, email;
     `,
-      [email, hashedPassword]
+      [email, hashedPassword, streetAddress, city, state, zip, isAdmin]
     );
     return user;
   } catch (error) {
@@ -62,7 +70,7 @@ async function getUserById(userId) {
       rows: [user],
     } = await client.query(
       `
-      SELECT id, email
+      SELECT id, email, street_address, city, state, zip, is_admin
       FROM users
       WHERE id=${userId}
       
@@ -85,7 +93,7 @@ async function getUserByEmail(email) {
       rows: [user],
     } = await client.query(
       `
-      SELECT *
+      SELECT id, email, street_address, city, state, zip, is_admin
       FROM users
       WHERE email=$1;
     

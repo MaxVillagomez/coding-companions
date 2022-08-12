@@ -77,8 +77,6 @@ async function getProductByName(name) {
   }
 }
 
-
-
 const updateProduct = async (id, fields = {}) => {
   const keys = Object.keys(fields);
 
