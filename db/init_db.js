@@ -20,7 +20,10 @@ const {
   getIndividualCartByCartId,
   updateProduct,
   destroyProduct,
-
+  getCartOrderById,
+  getCartOrderByUserId,
+  getAllActiveCarts,
+  getAllInactiveCarts,
 
   // declare your model imports here
   // for example, User
@@ -51,7 +54,12 @@ async function createTables() {
         CREATE TABLE users (
           id SERIAL PRIMARY KEY,
           email VARCHAR(255) UNIQUE NOT NULL,
-          password VARCHAR(255) NOT NULL
+          password VARCHAR(255) NOT NULL,
+          street_address VARCHAR(255) NOT NULL,
+          city VARCHAR(255) NOT NULL,
+          state VARCHAR(255) NOT NULL,
+          zip INTEGER NOT NULL,
+          is_admin BOOLEAN DEFAULT false
         );
 
         CREATE TABLE products (
@@ -74,7 +82,8 @@ async function createTables() {
           id SERIAL PRIMARY KEY,
           name VARCHAR(255) UNIQUE NOT NULL,
           description VARCHAR(255),
-          products_included INTEGER REFERENCES products(id)
+          products_included VARCHAR(255)
+         
         );
   
         CREATE TABLE individual_cart_items (
@@ -101,14 +110,29 @@ async function createInitialUsers() {
     const max = await createUser({
       email: "maxvi@maxvi.com",
       password: "password",
+      streetAddress: "4450 Main Street",
+      city: "Bloomingdale",
+      state: "Iowa",
+      zip: "44356",
+      isAdmin: false,
     });
     const austin = await createUser({
       email: "austin@austin.com",
       password: "password",
+      streetAddress: "418 Jacoby Lane",
+      city: "Rome",
+      state: "Tennessee",
+      zip: "33218",
+      isAdmin: true,
     });
     const luke = await createUser({
       email: "luke@luke.com",
       password: "password",
+      streetAddress: "308 Negra Arroya Lane",
+      city: "Albuquerque",
+      state: "New Mexico",
+      zip: "61705",
+      isAdmin: true,
     });
     console.log("Finished creating users...");
   } catch (error) {
@@ -169,13 +193,16 @@ async function createInitialCategories() {
     const category1 = await createCategory({
       name: "Heros",
       description: "Coding Companions of all your favorite heros!",
-      productsIncluded: 1,
+      productsIncluded: [
+        "Super Man Coding Companion",
+        "Wonder Woman Coding Companion",
+      ],
     });
 
     const category2 = await createCategory({
       name: "Villains",
       description: "Coding Companions of all your mischevieous villains!",
-      productsIncluded: 3,
+      productsIncluded: ["Rocket Coding Companion"],
     });
     console.log("Finished creating initial categories!");
   } catch (error) {
@@ -209,22 +236,24 @@ async function createInitialIndividualCartItem() {
     console.log("Creating intial items");
     const item1 = await createIndividualCartItem({
       productId: 1,
+      priceAtPurchase: 14.99,
       cartId: 1,
       quantity: 1,
     });
 
     const item2 = await createIndividualCartItem({
       productId: 2,
+      priceAtPurchase: 123456.99,
       cartId: 1,
       quantity: 2,
     });
 
     const item3 = createIndividualCartItem({
       productId: 3,
+      priceAtPurchase: 13.99,
       cartId: 2,
       quantity: 1,
     });
-
     console.log("Finished creating initial items");
   } catch (error) {
     console.error(error);
@@ -319,12 +348,6 @@ async function testDB() {
     const cartId1 = await getIndividualCartByCartId(2);
     console.log("Get Individual Cart by Cart Id Result: ", cartId1);
 
-  const item5 = await createIndividualCartItem({
-      productId: 3,
-      cartId: 2,
-      quantity: 1,
-    });
-
     console.log("Calling update Product at ID 3");
     const update = await updateProduct(3, {
       name: "Updated rocket name",
@@ -334,15 +357,25 @@ async function testDB() {
     });
     console.log("Updated Product Result", update);
 
-    const item4 = await createIndividualCartItem({
-      productId: 3,
-      cartId: 2,
-      quantity: 1,
-    });
-
     console.log("Calling delete product at ID 4");
     const remove = await destroyProduct(4);
     console.log("Delete result", remove);
+
+    console.log("Calling get Cart Order By ID");
+    const cartOrder1 = await getCartOrderById(1);
+    console.log("Get Cart By Id Result: ", cartOrder1);
+
+    console.log("Calling Get Cart Order By User Id");
+    const userCartOrder = await getCartOrderByUserId(3);
+    console.log("Get Cart By User Id Result: ", userCartOrder);
+
+    console.log("Calling Get All Active Carts");
+    const active = await getAllActiveCarts();
+    console.log("Get All Active Carts Result ", active);
+
+    console.log("Calling Get All Inactive Carts");
+    const inactive = await getAllInactiveCarts();
+    console.log("Get ALL Inactive Carts Result ", inactive);
   } catch (error) {
     console.error("Error testing database");
     throw error;
