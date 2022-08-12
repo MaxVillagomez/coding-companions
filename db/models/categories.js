@@ -10,7 +10,7 @@ async function createCategory({name, description, productsIncluded }) {
         `, [name, description, productsIncluded]);
         return category;
     } catch (error) {
-        console.error(error);
+        console.error("Failed to create category...");
         throw error;
     }
 }
@@ -23,7 +23,41 @@ async function getAllCategories(){
         `);
         return rows;
     } catch (error) {
-        console.error(error);
+        console.error("Failed to get all categories...");
+        throw error;
+    }
+}
+
+async function getCategoryById(categoryId) {
+    if (!categoryId) {
+        return;
+    }
+    try {
+        const {rows: [category]} = await client.query(`
+        SELECT *
+        FROM categories
+        WHERE id = ${categoryId}
+        `);
+        return category;
+    } catch (error) {
+        console.error("Failed to get category by id");
+        throw error;
+    }
+}
+
+async function getCategoryByName(name){
+    if(!name){
+        return;
+    }
+    try {
+        const {rows: [category]} = await client.query(`
+        SELECT *
+        FROM categories
+        WHERE name = $1
+        `, [name]);
+        return category
+    } catch (error) {
+        console.error("Failed to get category by name");
         throw error;
     }
 }
@@ -31,4 +65,6 @@ async function getAllCategories(){
 module.exports = {
     createCategory,
     getAllCategories,
+    getCategoryById,
+    getCategoryByName,
 }
