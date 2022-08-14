@@ -24,6 +24,8 @@ const {
   getCartOrderByUserId,
   getAllActiveCarts,
   getAllInactiveCarts,
+  destroyIndividualCartItem,
+  updateQuantityOfItem,
 
   // declare your model imports here
   // for example, User
@@ -254,6 +256,13 @@ async function createInitialIndividualCartItem() {
       cartId: 2,
       quantity: 1,
     });
+
+    const item4 = createIndividualCartItem({
+      productId: 3,
+      priceAtPurchase: 13.99,
+      cartId: 3,
+      quantitiy: 3,
+    });
     console.log("Finished creating initial items");
   } catch (error) {
     console.error(error);
@@ -376,6 +385,14 @@ async function testDB() {
     console.log("Calling Get All Inactive Carts");
     const inactive = await getAllInactiveCarts();
     console.log("Get ALL Inactive Carts Result ", inactive);
+
+    console.log("Calling destroy individual cart item");
+    const deleteItem = await destroyIndividualCartItem(4);
+    console.log("Destroy individual cart item result: ", deleteItem);
+
+    console.log("Calling update quantity of item");
+    const updateQuantity = await updateQuantityOfItem(1, 100);
+    console.log("Update quantity result ", updateQuantity);
   } catch (error) {
     console.error("Error testing database");
     throw error;
