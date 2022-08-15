@@ -36,18 +36,42 @@ async function getAllProducts() {
   }
 }
 
+// async function getProductById(productId) {
+//   if (!productId) {
+//     return;
+//   }
+//   try {
+//     const {
+//       rows: [product],
+//     } = await client.query(`
+//     SELECT *
+//     FROM products
+//     WHERE id = ${productId}
+//     `);
+//     return product;
+//   } catch (error) {
+//     console.error("Faiuled to get prodct by Id");
+//     throw error;
+//   }
+// }
+
 async function getProductById(productId) {
   if (!productId) {
     return;
   }
+
   try {
     const {
       rows: [product],
-    } = await client.query(`
-    SELECT *
-    FROM products
-    WHERE id = ${productId}
-    `);
+    } = await client.query(
+      `
+      SELECT *
+      FROM products
+      WHERE id=$1
+    
+    `,
+      [productId]
+    );
     return product;
   } catch (error) {
     console.error("Failed to get product by Id");
