@@ -24,8 +24,11 @@ import {
 const App = () => {
   const [products, setProducts] = useState([]);
   const [indivProduct, setIndivProduct] = useState([]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const { productId } = useParams();
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -39,6 +42,13 @@ const App = () => {
     };
     fetchAllProducts();
   }, []);
+
+  useEffect(() => {
+    if (localStorage.token) {
+        setToken(localStorage.token);
+        setIsLoggedIn(!isLoggedIn);
+    }
+}, []);
 
   // useEffect(() => {
   //   const fetchProductById = async () => {
@@ -67,7 +77,15 @@ const App = () => {
             path="/products"
             element={<Products products={products} setProducts={setProducts} />}
           />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={
+            <Login 
+              email={email} 
+              setEmail={setEmail} 
+              password={password} 
+              setPassword={setPassword} 
+              token={token} 
+              setToken={setToken} 
+              setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/products/:productId"

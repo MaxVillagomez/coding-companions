@@ -5,7 +5,7 @@ const Register = () => {
     <div className="form-container">
       <form className="login-form">
         <label className="label">
-          Username
+          Email
           <input type="text"></input>
         </label>
         <label className="label">
