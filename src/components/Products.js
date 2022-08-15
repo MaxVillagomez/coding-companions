@@ -11,7 +11,7 @@ const Products = ({ products, setProducts }) => {
                 <h3>{product.name}</h3>
                 <img src={product.photo} />
 
-                <h5>{product.price}</h5>
+                <h5>${product.price}</h5>
 
                 <Link to={`/products/${product.id}`} className="view-details">
                   View Details

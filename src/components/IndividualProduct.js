@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductById } from "../axios-services";
 import { Link } from "react-router-dom";
 const IndividualProduct = ({ indivProduct, setIndivProduct }) => {
-  console.log("This is the indiv products", indivProduct);
+  // console.log("This is the indiv products", indivProduct);
 
   const { productId } = useParams();
   useEffect(() => {
@@ -30,7 +30,7 @@ const IndividualProduct = ({ indivProduct, setIndivProduct }) => {
           <h3>{indivProduct.name}</h3>
           <img src={indivProduct.photo} />
           <p>{indivProduct.description}</p>
-          <h5>{indivProduct.price}</h5>
+          <h5>${indivProduct.price}</h5>
           <Link to="/products/" className="view-details">
             Back to All Products
           </Link>
