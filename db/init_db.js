@@ -357,6 +357,7 @@ async function testDB() {
     const cartId1 = await getIndividualCartByCartId(2);
     console.log("Get Individual Cart by Cart Id Result: ", cartId1);
 
+
     console.log("Calling update Product at ID 3");
     const update = await updateProduct(3, {
       name: "Updated rocket name",
@@ -365,6 +366,7 @@ async function testDB() {
       price: 99.99,
     });
     console.log("Updated Product Result", update);
+
 
     console.log("Calling delete product at ID 4");
     const remove = await destroyProduct(4);
