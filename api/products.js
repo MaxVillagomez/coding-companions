@@ -11,4 +11,23 @@ apiRouter.get('/', async (req, res, next) =>{
     }
 });
 
+apiRouter.get('./:productId', async(req, res, next) => {
+    try {
+        const productId = await getProductById({id: req.params.productId});
+        if(productId) {
+            res.send(productId);
+        } else {
+            next({
+                name: 'NotFound',
+                message: `No Product found for ${req.params.productId}`
+            });
+        }
+    } catch (error) {
+        console.error("Trouble getting product by Id");
+        throw error;
+    }
+})
+
+apiRouter
+
 module.exports = apiRouter;

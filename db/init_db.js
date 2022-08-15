@@ -319,7 +319,7 @@ async function testDB() {
     const cartId1 = await getIndividualCartByCartId(2);
     console.log("Get Individual Cart by Cart Id Result: ", cartId1);
 
-  const item5 = await createIndividualCartItem({
+  const item4 = await createIndividualCartItem({
       productId: 3,
       cartId: 2,
       quantity: 1,
@@ -334,7 +334,7 @@ async function testDB() {
     });
     console.log("Updated Product Result", update);
 
-    const item4 = await createIndividualCartItem({
+    const item5 = await createIndividualCartItem({
       productId: 3,
       cartId: 2,
       quantity: 1,
