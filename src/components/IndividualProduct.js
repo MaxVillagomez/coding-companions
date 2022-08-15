@@ -31,7 +31,9 @@ const IndividualProduct = ({ indivProduct, setIndivProduct }) => {
           <img src={indivProduct.photo} />
           <p>{indivProduct.description}</p>
           <h5>{indivProduct.price}</h5>
-          <Link to="/products/">Back to All Products</Link>
+          <Link to="/products/" className="view-details">
+            Back to All Products
+          </Link>
         </div>
       ) : (
         <h1> No products to display!</h1>
