@@ -12,7 +12,10 @@ const Products = ({ products, setProducts }) => {
                 <img src={product.photo} />
 
                 <h5>{product.price}</h5>
-                <Link to={`/products/${product.id}`}>View Details</Link>
+
+                <Link to={`/products/${product.id}`} className="view-details">
+                  View Details
+                </Link>
               </div>
             );
           })
