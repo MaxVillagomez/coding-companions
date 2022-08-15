@@ -46,3 +46,13 @@ export async function getAPIHealth() {
     return { healthy: false };
   }
 }
+
+export async function login(email, password) {
+  try {
+    const {data} = await axios.post(`/api/users/login`, {email, password});
+    console.log("this is the log in data: ", data)
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

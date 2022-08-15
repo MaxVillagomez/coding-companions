@@ -42,6 +42,11 @@ apiRouter.post('/login', async (req, res, next) => {
         const user = await getUserByEmail(email);
         if (user && user.password === password) {
             const token = jwt.sign({ id: user.id, email}, JWT_SECRET);
+            res.send({
+                user,
+                message: 'Welcome Back!',
+                token
+            });
         } else {
             next({
                 name: "IncorrectCredentialsError",
