@@ -12,6 +12,8 @@ import {
   Register,
   IndividualProduct,
   Cart,
+  Checkout,
+  Confirmation
 } from "./index";
 import "../style/App.css";
 import {
@@ -30,7 +32,7 @@ const App = () => {
   const [token, setToken] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cart, setCart] = useState([]);
-
+  const [cardNumber, setCardNumber] = useState('');
 
   const { productId } = useParams();
   useEffect(() => {
@@ -87,6 +89,12 @@ const App = () => {
     setCart((cart) => [...cart, { ...item, quantity: 1 }]);
   };
 
+  const handleClickRemove = (item) =>{
+    const items = cart.filter((cartItem) => cartItem.name !== item.name);
+    console.log(items);
+    setCart(items);
+  }
+
   return (
     <div className="app-container">
       <Router>
@@ -98,6 +106,7 @@ const App = () => {
               <Homepage
                 indivProduct={indivProduct}
                 setIndivProduct={setIndivProduct}
+                handleClick={handleClick}
               />
             }
           />
@@ -140,9 +149,14 @@ const App = () => {
                 setCart={setCart}
                 handleClick={handleClick}
                 handleDecClick={handleDecClick}
+                handleClickRemove={handleClickRemove}
               />
             }
           />
+          
+          <Route path="/checkout" element={<Checkout cardNumber = {cardNumber} setCardNumber ={setCardNumber}/>} />
+          <Route path="/confirmation" element={<Confirmation />} />
+          
         </Routes>
       </Router>
     </div>

@@ -31,7 +31,8 @@ const Login = (props) => {
                 const data = await response.json();
                 console.log("this is the response data: ", data);
         } catch (error) {
-          next(error);  
+          console.error(error);
+          throw error;  
         }
         
         const user = {
