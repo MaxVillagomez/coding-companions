@@ -11,6 +11,7 @@ import {
   Login,
   Register,
   IndividualProduct,
+  Cart,
 } from "./index";
 import "../style/App.css";
 import {
@@ -28,6 +29,8 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [cart, setCart] = useState([]);
+
 
   const { productId } = useParams();
   useEffect(() => {
@@ -43,6 +46,46 @@ const App = () => {
     };
     fetchAllProducts();
   }, []);
+
+  const handleClick = (item) => {
+    if (cart.some((cartItem) => cartItem.name === item.name)) {
+      setCart((cart) =>
+        cart.map((cartItem) =>
+          cartItem.name === item.name
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+              }
+            : cartItem
+        )
+      );
+      return;
+    }
+    setCart((cart) => [...cart, { ...item, quantity: 1 }]);
+  };
+
+  const handleDecClick = (item) => {
+    if (item.quantity <= 1) {
+      let cartFilter = cart.filter((cartItem) => cartItem.name !== item.name);
+      console.log(cartFilter);
+      setCart(cartFilter);
+    }
+    if (cart.some((cartItem) => cartItem.name === item.name)) {
+      setCart((cart) =>
+        cart.map((cartItem) =>
+          cartItem.name === item.name
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity - 1,
+              }
+            : cartItem
+        )
+      );
+      return;
+    }
+
+    setCart((cart) => [...cart, { ...item, quantity: 1 }]);
+  };
 
   return (
     <div className="app-container">
@@ -60,7 +103,13 @@ const App = () => {
           />
           <Route
             path="/products"
-            element={<Products products={products} setProducts={setProducts} />}
+            element={
+              <Products
+                products={products}
+                setProducts={setProducts}
+                handleClick={handleClick}
+              />
+            }
           />
           <Route path="/login" element={
             <Login 
@@ -79,6 +128,18 @@ const App = () => {
               <IndividualProduct
                 indivProduct={indivProduct}
                 setIndivProduct={setIndivProduct}
+                handleClick={handleClick}
+              />
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                cart={cart}
+                setCart={setCart}
+                handleClick={handleClick}
+                handleDecClick={handleDecClick}
               />
             }
           />

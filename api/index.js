@@ -1,25 +1,24 @@
-const apiRouter = require('express').Router();
-const cors = require('cors');
+const apiRouter = require("express").Router();
+const cors = require("cors");
 apiRouter.use(cors());
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET = 'hiddenSecret'} = process.env;
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET = "hiddenSecret" } = process.env;
 
-apiRouter.get('/', (req, res, next) => {
+apiRouter.get("/", (req, res, next) => {
   res.send({
-    message: 'API is under construction!',
+    message: "API is under construction!",
   });
 });
 
-
-apiRouter.get('/health', (req, res, next) => {
+apiRouter.get("/health", (req, res, next) => {
   res.send({
     healthy: true,
   });
 });
 
 apiRouter.use(async (req, res, next) => {
-  const prefix = 'Bearer ';
-  const auth = req.header('Authorization');
+  const prefix = "Bearer ";
+  const auth = req.header("Authorization");
   if (!auth) {
     next();
   } else if (auth.startsWith(prefix)) {
@@ -37,29 +36,28 @@ apiRouter.use(async (req, res, next) => {
     }
   } else {
     res.send({
-      name: 'AuthorizationHeaderError',
-      message: `Authorization token must start with ${ prefix }`
+      name: "AuthorizationHeaderError",
+      message: `Authorization token must start with ${prefix}`,
     });
     next();
   }
 });
 
 apiRouter.use((req, res, next) => {
-  if(req.user) {
-    console.log("User is set: ", req.user)
+  if (req.user) {
+    console.log("User is set: ", req.user);
   }
   next();
-})
-
+});
 
 // const { Router } = require('express');
 // place your routers here
 
 const usersRouter = require("./users");
-apiRouter.use('/users', usersRouter);
+apiRouter.use("/users", usersRouter);
 
 const productsRouter = require("./products");
-const { Router } = require('express');
-apiRouter.use('/products', productsRouter);
+const { Router } = require("express");
+apiRouter.use("/products", productsRouter);
 
 module.exports = apiRouter;
