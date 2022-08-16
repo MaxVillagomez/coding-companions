@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../axios-services";
 import { Link } from "react-router-dom";
-const IndividualProduct = ({ indivProduct, setIndivProduct }) => {
+const IndividualProduct = ({ indivProduct, setIndivProduct, handleClick }) => {
   // console.log("This is the indiv products", indivProduct);
 
   const { productId } = useParams();
@@ -31,6 +31,13 @@ const IndividualProduct = ({ indivProduct, setIndivProduct }) => {
           <img src={indivProduct.photo} />
           <p>{indivProduct.description}</p>
           <h5>${indivProduct.price}</h5>
+          <button
+            className="indiv-button"
+            onClick={() => handleClick(indivProduct)}
+          >
+            {" "}
+            Add to Cart{" "}
+          </button>
           <Link to="/products/" className="view-details">
             Back to All Products
           </Link>
