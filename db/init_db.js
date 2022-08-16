@@ -152,35 +152,96 @@ async function createInitialProducts() {
       description:
         "The hero of Metropolis is here to help manage your anger while you code!",
       photo: "https://m.media-amazon.com/images/I/617cdhho1iL._AC_SY606_.jpg",
-      quantity: 5,
+      quantity: 50,
       price: 14.99,
     });
 
     const product2 = await createProduct({
       name: "Wonder Woman Coding Companion",
       description:
-        "He may be blind, but the power of his music soothes even the most frustrated engineers.",
+        "The Amazonian Warrior will fight off any negative thoughts you have as an engineer!",
       photo:
         "https://media.gamestop.com/i/gamestop/11161780/Funko-POP-Heroes-Wonder-Woman-80th-Anniversary-Wonder-Woman-A-Twist-of-Fate-Vinyl-Figure",
-      quantity: 13,
-      price: 123456.99,
+      quantity: 25,
+      price: 14.99,
     });
 
     const product3 = await createProduct({
       name: "Rocket Coding Companion",
       description:
-        "This slippery little animal will show you the secrets to clean code!",
-      photo: "https://m.media-amazon.com/images/I/619b8I+RK5L._AC_SY550_.jpg",
-      quantity: 2,
-      price: 13.99,
+        "This slippery little raccoon will show you the secrets to clean code!",
+      photo:
+        "https://cdn10.bigcommerce.com/s-8v6b4hr6ku/products/4637/images/14615/3__39221.1530986996.1280.1280.jpg?c=2",
+      quantity: 100,
+      price: 14.99,
     });
 
     const product4 = await createProduct({
-      name: "This one needs to be deleted",
-      description: "DELETE ME PLEASE",
-      photo: "https://m.media-amazon.com/images/I/619b8I+RK5L._AC_SY550_.jpg",
-      quantity: 2,
-      price: 13.99,
+      name: "Batman Coding Companion",
+      description:
+        "The Dark Knight will show you why he is not the hero Gotham's engineers deserve, but the hero they need.",
+      photo:
+        "https://d3nt9em9l1urz8.cloudfront.net/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/m/img_6855.jpg",
+      quantity: 75,
+      price: 14.99,
+    });
+    const product5 = await createProduct({
+      name: "The Flash Coding Companion",
+      description:
+        "Write your code in a flash! Your typing speed is guranteed to improve with this companion.",
+      photo:
+        "https://hotstuff4geeks.com/wp-content/uploads/2021/01/Funko-Pop-Television-The-Flash-Fastest-Man-Alive-The-Flash-Funko-Pop-Vinyl-Figure.jpg",
+      quantity: 60,
+      price: 14.99,
+    });
+
+    const product6 = await createProduct({
+      name: "Joker Coding Companion",
+      description: "Don't ask him why he's so serious about coding.",
+      photo:
+        "https://ae01.alicdn.com/kf/HTB1xdEcXF9gSKJjSspbq6zeNXXaq/FUNKO-POP-12cm-Joker-Batman-The-Dark-Knight-Villain-s-Edition-Animation-Action-Figure-PVC-Model.jpg",
+      quantity: 10,
+      price: 19.99,
+    });
+
+    const product7 = await createProduct({
+      name: "Darth Vader Coding Companion",
+      description:
+        "Join the dark side of coding. Your powers will be multiplied.",
+      photo:
+        "https://d3nt9em9l1urz8.cloudfront.net/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/u/n/unnamed_2.jpg",
+      quantity: 5,
+      price: 19.99,
+    });
+
+    const product8 = await createProduct({
+      name: "Dr. Octopus Coding Companion",
+      description:
+        "Dr. Otto Octavius himself is here to help you multi-task when coding. His extra arms will come in handy when browsing through your tabs.",
+      photo:
+        "https://cdn.awsli.com.br/800x800/848/848833/produto/52112114/3e9df7bc52.jpg",
+      quantity: 7,
+      price: 19.99,
+    });
+
+    const product9 = await createProduct({
+      name: "Count Dooku Coding Companion",
+      description:
+        "His elegance on the field of battle will surely translate over to his new career of helping you write elegant code.",
+      photo:
+        "https://i5.walmartimages.com/asr/faa2e2fe-db2f-4d0c-a6b4-6d01c673968a_1.2bec88ecce06d91dc3136f7bd2245268.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff",
+      quantity: 10,
+      price: 19.99,
+    });
+
+    const product10 = await createProduct({
+      name: "Deadpool Coding Companion",
+      description:
+        "Is he a hero or villain? I don't know but he looks cool. Will be 0 help to you while coding but he's got jokes.",
+      photo:
+        "https://legacycomics.com/wp-content/uploads/2020/04/POP-DEADPOOL-546.jpg",
+      quantity: 20,
+      price: 19.99,
     });
   } catch (error) {
     console.error("Error creating initial products");
@@ -357,20 +418,18 @@ async function testDB() {
     const cartId1 = await getIndividualCartByCartId(2);
     console.log("Get Individual Cart by Cart Id Result: ", cartId1);
 
+    // console.log("Calling update Product at ID 3");
+    // const update = await updateProduct(3, {
+    //   name: "Updated rocket name",
+    //   description: "Updated rocket description",
+    //   quantity: 100,
+    //   price: 99.99,
+    // });
+    // console.log("Updated Product Result", update);
 
-    console.log("Calling update Product at ID 3");
-    const update = await updateProduct(3, {
-      name: "Updated rocket name",
-      description: "Updated rocket description",
-      quantity: 100,
-      price: 99.99,
-    });
-    console.log("Updated Product Result", update);
-
-
-    console.log("Calling delete product at ID 4");
-    const remove = await destroyProduct(4);
-    console.log("Delete result", remove);
+    // console.log("Calling delete product at ID 4");
+    // const remove = await destroyProduct(4);
+    // console.log("Delete result", remove);
 
     console.log("Calling get Cart Order By ID");
     const cartOrder1 = await getCartOrderById(1);

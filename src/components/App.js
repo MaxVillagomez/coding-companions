@@ -24,11 +24,8 @@ import {
 const App = () => {
   const [products, setProducts] = useState([]);
   const [indivProduct, setIndivProduct] = useState([]);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
+  const { productId } = useParams();
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -43,49 +40,25 @@ const App = () => {
     fetchAllProducts();
   }, []);
 
-  useEffect(() => {
-    if (localStorage.token) {
-        setToken(localStorage.token);
-        setIsLoggedIn(!isLoggedIn);
-    }
-}, []);
-
-  // useEffect(() => {
-  //   const fetchProductById = async () => {
-  //     if (!productId) {
-  //       return;
-  //     }
-
-  //     try {
-  //       const indivData = await getProductById(productId);
-  //       setIndivProduct(indivData);
-  //       console.log("This is the indiv data", indivData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchProductById();
-  // }, [productId]);
-
   return (
     <div className="app-container">
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route
+            path="/"
+            element={
+              <Homepage
+                indivProduct={indivProduct}
+                setIndivProduct={setIndivProduct}
+              />
+            }
+          />
           <Route
             path="/products"
             element={<Products products={products} setProducts={setProducts} />}
           />
-          <Route path="/login" element={
-            <Login 
-              email={email} 
-              setEmail={setEmail} 
-              password={password} 
-              setPassword={setPassword} 
-              token={token} 
-              setToken={setToken} 
-              setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/products/:productId"
