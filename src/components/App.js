@@ -25,7 +25,12 @@ import {
 const App = () => {
   const [products, setProducts] = useState([]);
   const [indivProduct, setIndivProduct] = useState([]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cart, setCart] = useState([]);
+
 
   const { productId } = useParams();
   useEffect(() => {
@@ -106,7 +111,16 @@ const App = () => {
               />
             }
           />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={
+            <Login 
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              token={token}
+              setToken={setToken}
+              setIsLoggedIn={setIsLoggedIn}
+            />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/products/:productId"

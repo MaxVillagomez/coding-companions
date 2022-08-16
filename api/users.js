@@ -38,23 +38,25 @@ apiRouter.post("/login", async (req, res, next) => {
   }
   try {
     const user = await getUserByEmail(email);
-    if (user && user.password === password) {
-      const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
-      res.send({
-        user,
-        message: "Welcome Back!",
-        token,
-      });
+    const hashedPassword = user.password;
+    const isValid = await bcrypt.compare(password, hashedPassword);
+    const token = jwt.sign({ id: user.id, email}, JWT_SECRET);
+    if (user && isValid) {
+        res.send({
+            user,
+            message: 'Welcome Back!',
+            token
+        });
     } else {
-      next({
-        name: "IncorrectCredentialsError",
-        message: "Username or password is incorrect",
-      });
+        next({
+            name: "IncorrectCredentialsError",
+            message: "Username or password is incorrect",
+          });
     }
   } catch (error) {
-    console.error("Trouble logging in.");
-    throw error;
+      console.error('Trouble logging in.')
+      throw error;
   }
-});
+})
 
 module.exports = apiRouter;

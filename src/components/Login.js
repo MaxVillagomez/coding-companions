@@ -15,6 +15,7 @@ const Login = (props) => {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        console.log("This is email and password: ", email, password);
         try {
             const response = await fetch('/api/users/login', {
                 method: "POST",
@@ -22,17 +23,15 @@ const Login = (props) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    user: {
                         email,
                         password,
-                    }
                 })
             });
-            // console.log("this is the response: ", response);
+            console.log("this is the response: ", response);
                 const data = await response.json();
                 console.log("this is the response data: ", data);
         } catch (error) {
-            
+          next(error);  
         }
         
         const user = {
