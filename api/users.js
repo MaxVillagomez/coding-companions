@@ -40,7 +40,7 @@ apiRouter.post("/login", async (req, res, next) => {
     const user = await getUserByEmail(email);
     const hashedPassword = user.password;
     const isValid = await bcrypt.compare(password, hashedPassword);
-    const token = jwt.sign({ id: user.id, email}, JWT_SECRET);
+    const token = jwt.sign({ id: user.id, email}, process.env.JWT_SECRET);
     if (user && isValid) {
         res.send({
             user,
