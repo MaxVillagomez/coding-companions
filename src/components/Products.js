@@ -13,6 +13,7 @@ const Products = ({ products, setProducts }) => {
 
                 <h5>${product.price}</h5>
 
+                <button className="add-to-cart-btn">Add to Cart</button>
                 <Link to={`/products/${product.id}`} className="view-details">
                   View Details
                 </Link>
