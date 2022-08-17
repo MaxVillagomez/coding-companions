@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 
-import { getAllProducts, getProductById } from "../axios-services";
+import { getAllProducts, getProductById, getMe } from "../axios-services";
 import {
   Homepage,
   Navbar,
@@ -13,7 +13,7 @@ import {
   IndividualProduct,
   Cart,
   Checkout,
-  Confirmation
+  Confirmation,
 } from "./index";
 import "../style/App.css";
 import {
@@ -24,6 +24,7 @@ import {
   useParams,
 } from "react-router-dom";
 
+
 const App = () => {
   const [products, setProducts] = useState([]);
   const [indivProduct, setIndivProduct] = useState([]);
@@ -33,6 +34,11 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cart, setCart] = useState([]);
   const [cardNumber, setCardNumber] = useState('');
+  const [ user, setUser] = useState({});
+  const [ city, setCity] = useState('');
+  const [ streetAddress, setStreetAddress] = useState('');
+  const [ state, setState] = useState('');
+  const [ zip, setZip] = useState('');
 
   const { productId } = useParams();
   useEffect(() => {
@@ -95,6 +101,30 @@ const App = () => {
     setCart(items);
   }
 
+  useEffect(() => {
+        if (localStorage.token) {
+            setToken(localStorage.token);
+            setIsLoggedIn(!isLoggedIn);
+        }
+    }, []);
+
+  //   // useEffect(() => {
+  //   //     if (!isLoggedIn) {
+  //   //         setCart('');
+  //   //     }
+  //   // })
+
+    // useEffect(() => {
+    //     if (token) {
+    //         const fetchMe = async () => {
+    //             const { data } = await getMe(token);
+    //             console.log("This is the data:", data);
+    //             setUser({  });
+    //         };
+    //         fetchMe();
+    //     }
+    // }, [isLoggedIn]);
+
   return (
     <div className="app-container">
       <Router>
@@ -130,7 +160,7 @@ const App = () => {
               setToken={setToken}
               setIsLoggedIn={setIsLoggedIn}
             />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register email={email} setEmail={setEmail} password={password} setPassword={setPassword} streetAddress={streetAddress} setStreetAddress={setStreetAddress} state={state} setState={setState} city={city} setCity={setCity} zip={zip} setZip={setZip}/>} />
           <Route
             path="/products/:productId"
             element={

@@ -17,7 +17,7 @@ apiRouter.post("/register", async (req, res, next) => {
         name: "EmailExistsError",
       });
     }
-    const user = await createUser({ email, password });
+    const user = await createUser({ email, password, streetAddress, city, state, zip });
     const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
     res.send({
       message: "Thank you for signing up!",

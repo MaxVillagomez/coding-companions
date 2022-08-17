@@ -56,3 +56,30 @@ export async function login({ email, password }) {
     throw error;
   }
 }
+
+export async function getMe (token) {
+  try {
+    const { data } = await axios.get("/api/users/me", 
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    })
+    return data;
+  } catch (error) {
+    console.error("Trouble getting me");
+    throw error;
+  }
+}
+
+export async function register ({ email, password, streetAddress, city, state, zip }) {
+  try {
+    const { data } = await axios.post("/api/users/register", {email, password, streetAddress, city, state, zip});
+    console.log("this is the register data:", data);
+    return data;
+  } catch (error) {
+    console.error("Trouble registering");
+    throw error;
+  }
+}
