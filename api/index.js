@@ -2,8 +2,8 @@ const apiRouter = require("express").Router();
 const cors = require("cors");
 apiRouter.use(cors());
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET = "hiddenSecret" } = process.env;
-
+const { JWT_SECRET } = process.env;
+const { getUserById } = require("../db");
 apiRouter.get("/", (req, res, next) => {
   res.send({
     message: "API is under construction!",
@@ -24,8 +24,8 @@ apiRouter.use(async (req, res, next) => {
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
     try {
-      const parsedToken = jwt.verify(token, JWT_SECRET);
-      const id = parsedToken && parsedToken.id;
+      const { id } = jwt.verify(token, JWT_SECRET);
+
       console.log("this is api index id: ", id);
       if (id) {
         req.user = await getUserById(id);
