@@ -1,6 +1,7 @@
 // grab our db client connection to use with our adapters
 const client = require("../client");
 const bcrypt = require("bcrypt");
+
 async function createUser({
   email,
   password,
@@ -33,6 +34,7 @@ async function createUser({
 async function getUser({ email, password }) {
   try {
     const user = await getUserByEmail(email);
+    // console.log("This is the user in DB", user);
     const hashedPassword = user.password;
     const isValid = await bcrypt.compare(password, hashedPassword);
 
@@ -93,7 +95,7 @@ async function getUserByEmail(email) {
       rows: [user],
     } = await client.query(
       `
-      SELECT id, email, street_address, city, state, zip, is_admin
+      SELECT *
       FROM users
       WHERE email=$1;
     

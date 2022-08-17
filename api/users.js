@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { createUser, getUserByEmail, getUser, getUserById } = require("../db");
 const { requireAdmin } = require("./utils");
-const { JWT_SECRET = "hiddenSecret" } = process.env;
+const { JWT_SECRET } = process.env;
 
 apiRouter.post("/register", async (req, res, next) => {
   const { email, password } = req.body;
@@ -18,7 +18,7 @@ apiRouter.post("/register", async (req, res, next) => {
       });
     }
     const user = await createUser({ email, password });
-    const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
     res.send({
       message: "Thank you for signing up!",
       token,
@@ -38,10 +38,11 @@ apiRouter.post("/login", async (req, res, next) => {
     });
   }
   try {
-    const user = await getUser(email, password);
+    const user = await getUser({ email, password });
     // const hashedPassword = user.password;
     // const isValid = await bcrypt.compare(password, hashedPassword);
-    const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET);
+    console.log("This is our secret", JWT_SECRET);
+    const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
     if (user) {
       res.send({
         user,
