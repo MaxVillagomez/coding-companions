@@ -12,6 +12,22 @@ const Register = () => {
           Password
           <input type="text"></input>
         </label>
+        <label className="label">
+          Street Address
+          <input type="text"></input>
+        </label>
+        <label className="label">
+          City
+          <input type="text"></input>
+        </label>
+        <label className="label">
+          State
+          <input type="text"></input>
+        </label>
+        <label className="label">
+          Zip
+          <input type="text"></input>
+        </label>
         <button type="submit">Register</button>
       </form>
 

@@ -427,9 +427,9 @@ async function testDB() {
     // });
     // console.log("Updated Product Result", update);
 
-    // console.log("Calling delete product at ID 4");
-    // const remove = await destroyProduct(4);
-    // console.log("Delete result", remove);
+    console.log("Calling delete product at ID 4");
+    const remove = await destroyProduct(4);
+    console.log("Delete result", remove);
 
     console.log("Calling get Cart Order By ID");
     const cartOrder1 = await getCartOrderById(1);

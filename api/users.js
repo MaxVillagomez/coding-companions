@@ -2,7 +2,8 @@ const express = require("express");
 const apiRouter = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { createUser, getUserByEmail } = require("../db");
+const { createUser, getUserByEmail, getUser, getUserById } = require("../db");
+const { requireAdmin } = require("./utils");
 const { JWT_SECRET = "hiddenSecret" } = process.env;
 
 apiRouter.post("/register", async (req, res, next) => {
@@ -37,26 +38,53 @@ apiRouter.post("/login", async (req, res, next) => {
     });
   }
   try {
-    const user = await getUserByEmail(email);
-    const hashedPassword = user.password;
-    const isValid = await bcrypt.compare(password, hashedPassword);
-    const token = jwt.sign({ id: user.id, email}, process.env.JWT_SECRET);
-    if (user && isValid) {
-        res.send({
-            user,
-            message: 'Welcome Back!',
-            token
-        });
+    const user = await getUser(email, password);
+    // const hashedPassword = user.password;
+    // const isValid = await bcrypt.compare(password, hashedPassword);
+    const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET);
+    if (user) {
+      res.send({
+        user,
+        message: "Welcome Back!",
+        token,
+      });
     } else {
-        next({
-            name: "IncorrectCredentialsError",
-            message: "Username or password is incorrect",
-          });
+      next({
+        name: "IncorrectCredentialsError",
+        message: "Username or password is incorrect",
+      });
     }
   } catch (error) {
-      console.error('Trouble logging in.')
-      throw error;
+    console.error("Trouble logging in.");
+    throw error;
   }
-})
+});
+
+apiRouter.get("/me", async (req, res, next) => {
+  const prefix = "Bearer ";
+  const auth = req.header("Authorization");
+
+  if (!auth) {
+    res.status(401).send({
+      error: "UnauthorizedError",
+      message: "You can't do this",
+      name: "SomeError",
+    });
+  } else if (auth.startsWith(prefix)) {
+    const token = auth.slice(prefix.length);
+
+    try {
+      const { id } = jwt.verify(token, JWT_SECRET);
+
+      if (id) {
+        req.user = await getUserById(id);
+        res.send(req.user);
+      }
+    } catch (error) {
+      console.error("Trouble getting me");
+      throw error;
+    }
+  }
+});
 
 module.exports = apiRouter;
