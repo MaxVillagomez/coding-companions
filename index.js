@@ -17,25 +17,26 @@ server.use(express.json());
 server.use((req, res, next) => {
   console.log("<__Body Logger START__>");
   console.log(req.body);
+  console.log("This is the user", req.user);
   console.log("<__Body Logger END__>");
 
   next();
 });
 
-// server.use(
-//   session({
-//     secret: `${process.env.JWT_SECRET}`,
-//     resave: false,
-//     saveUnitialized: false,
-//   })
-// );
+server.use(
+  session({
+    secret: `${process.env.JWT_SECRET}`,
+    resave: false,
+    saveUnitialized: false,
+  })
+);
 
-// server.get("/", (req, res) => {
-//   console.log(req.session);
-//   console.log("The actual session id: ", req.sessionID);
-//   res.session.viewCount += 1;
-//   res.send(`View count at ${req.session.viewCount}`);
-// });
+server.get("/", (req, res) => {
+  console.log(req.session);
+  console.log("The actual session id: ", req.sessionID);
+  res.session.viewCount += 1;
+  res.send(`View count at ${req.session.viewCount}`);
+});
 
 // here's our static files
 const path = require("path");

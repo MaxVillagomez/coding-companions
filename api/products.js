@@ -1,6 +1,14 @@
 const express = require("express");
 const apiRouter = express.Router();
-const { getAllProducts, getProductById, getProductByName } = require("../db");
+const {
+  getAllProducts,
+  getProductById,
+  getProductByName,
+  updateProduct,
+  destroyProduct,
+  createProduct,
+} = require("../db");
+const { requireAdmin } = require("./utils");
 
 apiRouter.get("/", async (req, res, next) => {
   try {
@@ -44,6 +52,64 @@ apiRouter.get("/:productId", async (req, res, next) => {
     }
   } catch (error) {
     console.error("Trouble getting product by Id");
+    throw error;
+  }
+});
+
+apiRouter.post("/", async (req, res, next) => {
+  const { name, description, photo, quantity, price } = req.body;
+
+  try {
+    const product = await createProduct({
+      name,
+      description,
+      photo,
+      quantity,
+      price,
+    });
+    res.send(product);
+  } catch (error) {
+    console.error("Trouble creating new product");
+    throw error;
+  }
+});
+
+apiRouter.patch("/:productId", async (req, res, next) => {
+  // console.log("This is the req body", req.body);
+  const { productId } = req.params;
+  console.log("this is the req params", req.params);
+  const { name, description, photo, quantity, price } = req.body;
+
+  try {
+    const product = await getProductById(productId);
+    console.log("this is the product", product);
+
+    const updatedProduct = await updateProduct(productId, {
+      name,
+      description,
+      photo,
+      quantity,
+      price,
+    });
+    console.log("This is the updatedProduct: ", updatedProduct);
+    res.send(updatedProduct);
+  } catch (error) {
+    console.error("Trouble patching product");
+    throw error;
+  }
+});
+
+apiRouter.delete("/:productId", async (req, res, next) => {
+  const { productId } = req.params;
+
+  try {
+    const product = await getProductById(productId);
+
+    const remove = await destroyProduct(productId);
+
+    res.send(remove);
+  } catch (error) {
+    console.error("Trouble deleting product");
     throw error;
   }
 });
