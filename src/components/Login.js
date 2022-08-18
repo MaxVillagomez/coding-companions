@@ -15,7 +15,6 @@ const Login = (props) => {
   const navigate = useNavigate();
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("This is email and password: ", email, password);
 
     const { user, token } = await login({ email, password });
     console.log("this is the data: ", user);
