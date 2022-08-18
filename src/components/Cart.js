@@ -11,13 +11,6 @@ const Cart = ({
   //   console.log("This is the quantity", quantity);
   //   console.log("This is the cart", cart);
 
-  let localCart = localStorage.getItem("cart");
-
-  useEffect(() => {
-    localCart = JSON.parse(localCart);
-    if (localCart) setCart(localCart);
-  }, []);
-
   let subTotal = 0;
   cart.map((item) => {
     subTotal += item.price * item.quantity;

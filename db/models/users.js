@@ -13,6 +13,7 @@ async function createUser({
 }) {
   const SALT_COUNT = 10;
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+  console.log("this is the hashed password", hashedPassword);
   try {
     const {
       rows: [user],

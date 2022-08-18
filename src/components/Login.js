@@ -16,28 +16,10 @@ const Login = (props) => {
   async function handleSubmit(event) {
     event.preventDefault();
     console.log("This is email and password: ", email, password);
-    // try {
-    //     const response = await fetch('/api/users/login', {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //                 email,
-    //                 password,
-    //         })
-    //     });
-    //     console.log("this is the response: ", response);
-    //         const data = await response.json();
-    //         console.log("this is the response data: ", data);
-    // } catch (error) {
-    //   console.error(error);
-    //   throw error;
-    // }
 
-    const { user } = await login({ email, password });
+    const { user, token } = await login({ email, password });
     console.log("this is the data: ", user);
-    localStorage.setItem("token", user.token);
+    localStorage.token = token;
     setIsLoggedIn(true);
     setToken(localStorage.token);
     setEmail("");
@@ -48,7 +30,7 @@ const Login = (props) => {
     <div className="form-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <label className="label">
-          Email: 
+          Email:
           <input
             type="text"
             value={email}
@@ -56,7 +38,7 @@ const Login = (props) => {
             onChange={(event) => setEmail(event.target.value)}
           ></input>
         </label>
-        <br/>
+        <br />
         <label className="label">
           Password:
           <input
@@ -66,14 +48,15 @@ const Login = (props) => {
             onChange={(event) => setPassword(event.target.value)}
           ></input>
         </label>
-      <div className="login-button-and-link-container">
-        <button type="submit">Login</button>
-        <Link className="register-link" to="/register">
-          New User? Register here!
-        </Link>
-      </div>
+        <div className="login-button-and-link-container">
+          <Link to="/">
+            <button type="submit">Login</button>
+          </Link>
+          <Link className="register-link" to="/register">
+            New User? Register here!
+          </Link>
+        </div>
       </form>
-
     </div>
   );
 };
