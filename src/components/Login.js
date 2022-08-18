@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../axios-services";
 
 const Login = (props) => {
@@ -12,7 +12,7 @@ const Login = (props) => {
     setToken,
     setIsLoggedIn,
   } = props;
-
+  const navigate = useNavigate();
   async function handleSubmit(event) {
     event.preventDefault();
     console.log("This is email and password: ", email, password);
@@ -24,6 +24,7 @@ const Login = (props) => {
     setToken(localStorage.token);
     setEmail("");
     setPassword("");
+    navigate("/", { replace: true });
   }
 
   return (
