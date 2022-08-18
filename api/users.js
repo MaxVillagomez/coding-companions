@@ -7,18 +7,28 @@ const { requireAdmin } = require("./utils");
 const { JWT_SECRET } = process.env;
 
 apiRouter.post("/register", async (req, res, next) => {
-  const { email, password, streetAddress, city, state, zip } = req.body;
+  const { email, password, streetAddress, city, state, zip, isAdmin } =
+    req.body;
   console.log("This is req.body in api users: ", req.body);
   try {
     const _user = await getUserByEmail(email);
     if (_user) {
-      res.status(401).send({
+      res.status(401);
+      next({
         error: "401",
         message: `Email ${email} is aleady taken.`,
         name: "EmailExistsError",
       });
     }
-    const user = await createUser({ email, password, streetAddress, city, state, zip });
+    const user = await createUser({
+      email,
+      password,
+      streetAddress,
+      city,
+      state,
+      zip,
+      isAdmin,
+    });
     const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
     res.send({
       message: "Thank you for signing up!",
@@ -26,7 +36,7 @@ apiRouter.post("/register", async (req, res, next) => {
     });
   } catch (error) {
     console.error("Touble registering user.");
-    throw error;
+    next(error);
   }
 });
 
