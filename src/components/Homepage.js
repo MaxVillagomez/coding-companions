@@ -4,18 +4,16 @@ import { getProductById } from "../axios-services";
 
 const Homepage = () => {
   return (
-    <div className="view-popular-products-container">
+    <a href='/products/10'className="view-popular-products-container">
       <h1 className="view-popular-products">View Our Most Recent Addition!</h1>
 
       <div className="featured-product">
         <h3>Deadpool Coding Companion</h3>
-        <img src="https://legacycomics.com/wp-content/uploads/2020/04/POP-DEADPOOL-546.jpg" />
+        <img className="featured-product-img" src="https://legacycomics.com/wp-content/uploads/2020/04/POP-DEADPOOL-546.jpg" />
         <h5>$19.99</h5>
-        <Link to={`/products/10`} className="view-details">
-          View Details
-        </Link>
+        <p>Click to view more details!</p>
       </div>
-    </div>
+    </a>
   );
 };
 

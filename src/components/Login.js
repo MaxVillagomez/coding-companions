@@ -48,29 +48,32 @@ const Login = (props) => {
     <div className="form-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <label className="label">
-          Email
+          Email: 
           <input
             type="text"
             value={email}
+            placeholder="Email"
             onChange={(event) => setEmail(event.target.value)}
           ></input>
         </label>
+        <br/>
         <label className="label">
-          Password
+          Password:
           <input
             type="text"
             value={password}
+            placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
           ></input>
         </label>
+      <div className="login-button-and-link-container">
         <button type="submit">Login</button>
-      </form>
-
-      <div>
         <Link className="register-link" to="/register">
           New User? Register here!
         </Link>
       </div>
+      </form>
+
     </div>
   );
 };

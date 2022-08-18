@@ -11,20 +11,24 @@ const Cart = ({ cart, setCart, handleClick, handleDecClick, handleClickRemove })
   });
 
   return (
-    <div>
+    <div className="cart-container">
       {cart.map((item) => (
         <div className="cart-box" key={item.id}>
-          <h3>{item.name}</h3>
+          <h4>{item.name}</h4>
+          <img className="cart-image" src={item.photo}/>
           <h5>{item.price * item.quantity}</h5>
-          <button onClick={() => handleClick(item)}>+</button>
+          <button className="cart-button" onClick={() => handleClick(item)}>+</button>
           <h5>{item.quantity}</h5>
-          <button onClick={() => handleDecClick(item)}>-</button>
-          <button onClick={() => handleClickRemove(item)}>Remove Item</button>
+          <button className="cart-button" onClick={() => handleDecClick(item)}>-</button>
+          <button className="cart-button" onClick={() => handleClickRemove(item)}>Remove Item</button>
         </div>
       ))}
-          <h5>Total {subTotal}</h5>
-          {subTotal ? <Link to='/checkout'>
-          <button>Proceed to Checkout</button>
+          {subTotal 
+          ? <h5 className="subtotal">Subtotal {subTotal}</h5>
+          : null
+          } 
+          {subTotal ? <Link className="checkout-button-container" to='/checkout'>
+          <button className="checkout-button">Proceed to Checkout</button>
           </Link> : <h1>Add Items to your Cart</h1>}
     </div>
   );

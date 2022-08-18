@@ -7,7 +7,8 @@ const { requireAdmin } = require("./utils");
 const { JWT_SECRET } = process.env;
 
 apiRouter.post("/register", async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, streetAddress, city, state, zip } = req.body;
+  console.log("This is req.body in api users: ", req.body);
   try {
     const _user = await getUserByEmail(email);
     if (_user) {
