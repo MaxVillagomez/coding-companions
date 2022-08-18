@@ -28,6 +28,7 @@ import axios from "axios";
 export async function getAllProducts() {
   try {
     const { data } = await axios.get("/api/products");
+    console.log("This is all products data: ", data)
     return data;
   } catch (error) {
     console.error(error);
@@ -87,6 +88,69 @@ export async function register ({ email, password, streetAddress, city, state, z
     return data;
   } catch (error) {
     console.error("Trouble registering");
+    throw error;
+  }
+}
+
+export async function addProduct (token, name, description, photo, quantity, price) {
+  try {
+    const {data: products} = await axios.post("/api/products",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        photo,
+        quantity, 
+        price
+      })
+    });
+    console.log("this is data in addProduct axios: ", products);
+    return products;
+  } catch (error) {
+    console.error("Trouble adding product...")
+    throw error;
+  }
+}
+
+export async function editProduct (productId, token, name, description, photo, quantity, price) {
+  try {
+    const {data} = await axios.patch(`/api/products/${productId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        photo,
+        quantity, 
+        price
+      })
+    });
+    return data;
+  } catch (error) {
+    console.error("Trouble editing product...")
+    throw error;
+  }
+}
+
+export async function deleteProduct (token, productId) {
+  try {
+    const {data} = await axios.delete(`/api/products/${productId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    console.log("This the delete data: ", data);
+    return data;
+  } catch (error) {
     throw error;
   }
 }

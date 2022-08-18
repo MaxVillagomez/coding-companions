@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 
-import { getAllProducts, getProductById, getMe, getUsers } from "../axios-services";
+import { getAllProducts, getProductById, getMe, getUsers, addProduct } from "../axios-services";
 import {
   Homepage,
   Navbar,
@@ -15,7 +15,10 @@ import {
   Checkout,
   Confirmation,
   Admin,
-  AllUsers
+  AllUsers,
+  AddProduct,
+  EditProduct,
+  EditIndivProduct
 } from "./index";
 import "../style/App.css";
 import {
@@ -42,6 +45,11 @@ const App = () => {
   const [streetAddress, setStreetAddress] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(0);
 
   const { productId } = useParams();
 
@@ -242,6 +250,40 @@ const App = () => {
           <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<AllUsers users={users} setUsers={setUsers}/>} />
+          <Route path="/admin/createproduct" element={
+            <AddProduct
+              token={token}
+              name={name}
+              setName={setName}
+              description={description}
+              setDescription={setDescription}
+              photo={photo}
+              setPhoto={setPhoto}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              price={price}
+              setPrice={setPrice}
+            />}/>
+            <Route path="/admin/products/:productId" element={<EditIndivProduct
+                token={token}
+                products={products}
+                name={name}
+                setName={setName}
+                description={description}
+                setDescription={setDescription}
+                photo={photo}
+                setPhoto={setPhoto}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                price={price}
+                setPrice={setPrice}
+                indivProduct={indivProduct}
+                setIndivProduct={setIndivProduct}
+            />}/>
+            <Route path="/admin/products" element={
+              <EditProduct
+                products={products}
+            />} />
         </Routes>
       </Router>
 
