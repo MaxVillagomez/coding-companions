@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 const Products = ({ products, setProducts, handleClick }) => {
   return (
     <>
-      <div className="all-products">
+      <div className="all-products-container">
         {products && products.length ? (
           products.map((product) => {
             return (
-              <>
+              <div className="all-products">
                 <a
                   href={`/products/${product.id}`}
                   className="indiv-product"
@@ -24,7 +24,7 @@ const Products = ({ products, setProducts, handleClick }) => {
                 >
                   Add to Cart
                 </button>
-              </>
+              </div>
             );
           })
         ) : (

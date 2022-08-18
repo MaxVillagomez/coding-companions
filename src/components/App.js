@@ -189,6 +189,10 @@ const App = () => {
           
         </Routes>
       </Router>
+
+      <footer className="footer-container">
+        <p>Website built and designed by Luke, Austin, and Max</p>
+      </footer>
     </div>
   );
 };

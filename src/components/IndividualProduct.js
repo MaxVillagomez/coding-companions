@@ -28,7 +28,7 @@ const IndividualProduct = ({ indivProduct, setIndivProduct, handleClick }) => {
       {indivProduct && indivProduct.id ? (
         <div className="indiv-product" key={productId.id}>
           <h3>{indivProduct.name}</h3>
-          <img src={indivProduct.photo} />
+          <img className="indiv-product-img" src={indivProduct.photo} />
           <p>{indivProduct.description}</p>
           <h5>${indivProduct.price}</h5>
           <button
