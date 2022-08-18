@@ -24,23 +24,28 @@ import {
   useParams,
 } from "react-router-dom";
 
+const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "[]");
 
 const App = () => {
   const [products, setProducts] = useState([]);
   const [indivProduct, setIndivProduct] = useState([]);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cart, setCart] = useState([]);
-  const [cardNumber, setCardNumber] = useState('');
-  const [ user, setUser] = useState({});
-  const [ city, setCity] = useState('');
-  const [ streetAddress, setStreetAddress] = useState('');
-  const [ state, setState] = useState('');
-  const [ zip, setZip] = useState('');
+  const [cart, setCart] = useState(cartFromLocalStorage);
+  const [cardNumber, setCardNumber] = useState("");
+  const [user, setUser] = useState({});
+  const [city, setCity] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
 
   const { productId } = useParams();
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -95,18 +100,18 @@ const App = () => {
     setCart((cart) => [...cart, { ...item, quantity: 1 }]);
   };
 
-  const handleClickRemove = (item) =>{
+  const handleClickRemove = (item) => {
     const items = cart.filter((cartItem) => cartItem.name !== item.name);
     console.log(items);
     setCart(items);
-  }
+  };
 
   useEffect(() => {
-        if (localStorage.token) {
-            setToken(localStorage.token);
-            setIsLoggedIn(!isLoggedIn);
-        }
-    }, []);
+    if (localStorage.token) {
+      setToken(localStorage.token);
+      setIsLoggedIn(!isLoggedIn);
+    }
+  }, []);
 
   //   // useEffect(() => {
   //   //     if (!isLoggedIn) {
@@ -114,16 +119,16 @@ const App = () => {
   //   //     }
   //   // })
 
-    // useEffect(() => {
-    //     if (token) {
-    //         const fetchMe = async () => {
-    //             const { data } = await getMe(token);
-    //             console.log("This is the data:", data);
-    //             setUser({  });
-    //         };
-    //         fetchMe();
-    //     }
-    // }, [isLoggedIn]);
+  // useEffect(() => {
+  //     if (token) {
+  //         const fetchMe = async () => {
+  //             const { data } = await getMe(token);
+  //             console.log("This is the data:", data);
+  //             setUser({  });
+  //         };
+  //         fetchMe();
+  //     }
+  // }, [isLoggedIn]);
 
   return (
     <div className="app-container">
@@ -150,17 +155,39 @@ const App = () => {
               />
             }
           />
-          <Route path="/login" element={
-            <Login 
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-              token={token}
-              setToken={setToken}
-              setIsLoggedIn={setIsLoggedIn}
-            />} />
-          <Route path="/register" element={<Register email={email} setEmail={setEmail} password={password} setPassword={setPassword} streetAddress={streetAddress} setStreetAddress={setStreetAddress} state={state} setState={setState} city={city} setCity={setCity} zip={zip} setZip={setZip}/>} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                email={email}
+                setEmail={setEmail}
+                password={password}
+                setPassword={setPassword}
+                token={token}
+                setToken={setToken}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Register
+                email={email}
+                setEmail={setEmail}
+                password={password}
+                setPassword={setPassword}
+                streetAddress={streetAddress}
+                setStreetAddress={setStreetAddress}
+                state={state}
+                setState={setState}
+                city={city}
+                setCity={setCity}
+                zip={zip}
+                setZip={setZip}
+              />
+            }
+          />
           <Route
             path="/products/:productId"
             element={
@@ -183,10 +210,14 @@ const App = () => {
               />
             }
           />
-          
-          <Route path="/checkout" element={<Checkout cardNumber = {cardNumber} setCardNumber ={setCardNumber}/>} />
+
+          <Route
+            path="/checkout"
+            element={
+              <Checkout cardNumber={cardNumber} setCardNumber={setCardNumber} />
+            }
+          />
           <Route path="/confirmation" element={<Confirmation />} />
-          
         </Routes>
       </Router>
 

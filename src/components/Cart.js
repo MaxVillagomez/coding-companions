@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Cart = ({ cart, setCart, handleClick, handleDecClick, handleClickRemove }) => {
+const Cart = ({
+  cart,
+  setCart,
+  handleClick,
+  handleDecClick,
+  handleClickRemove,
+}) => {
   //   console.log("This is the quantity", quantity);
   //   console.log("This is the cart", cart);
 
-  let subTotal = 0
-  cart.map(item => {
+  let localCart = localStorage.getItem("cart");
+
+  useEffect(() => {
+    localCart = JSON.parse(localCart);
+    if (localCart) setCart(localCart);
+  }, []);
+
+  let subTotal = 0;
+  cart.map((item) => {
     subTotal += item.price * item.quantity;
   });
 
@@ -15,21 +28,31 @@ const Cart = ({ cart, setCart, handleClick, handleDecClick, handleClickRemove })
       {cart.map((item) => (
         <div className="cart-box" key={item.id}>
           <h4>{item.name}</h4>
-          <img className="cart-image" src={item.photo}/>
+          <img className="cart-image" src={item.photo} />
           <h5>{item.price * item.quantity}</h5>
-          <button className="cart-button" onClick={() => handleClick(item)}>+</button>
+          <button className="cart-button" onClick={() => handleClick(item)}>
+            +
+          </button>
           <h5>{item.quantity}</h5>
-          <button className="cart-button" onClick={() => handleDecClick(item)}>-</button>
-          <button className="cart-button" onClick={() => handleClickRemove(item)}>Remove Item</button>
+          <button className="cart-button" onClick={() => handleDecClick(item)}>
+            -
+          </button>
+          <button
+            className="cart-button"
+            onClick={() => handleClickRemove(item)}
+          >
+            Remove Item
+          </button>
         </div>
       ))}
-          {subTotal 
-          ? <h5 className="subtotal">Subtotal {subTotal}</h5>
-          : null
-          } 
-          {subTotal ? <Link className="checkout-button-container" to='/checkout'>
+      {subTotal ? <h5 className="subtotal">Subtotal {subTotal}</h5> : null}
+      {subTotal ? (
+        <Link className="checkout-button-container" to="/checkout">
           <button className="checkout-button">Proceed to Checkout</button>
-          </Link> : <h1>Add Items to your Cart</h1>}
+        </Link>
+      ) : (
+        <h1>Add Items to your Cart</h1>
+      )}
     </div>
   );
 };
