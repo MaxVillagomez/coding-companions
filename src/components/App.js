@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 
-import { getAllProducts, getProductById, getMe } from "../axios-services";
+import { getAllProducts, getProductById, getMe, getUsers } from "../axios-services";
 import {
   Homepage,
   Navbar,
@@ -14,6 +14,8 @@ import {
   Cart,
   Checkout,
   Confirmation,
+  Admin,
+  AllUsers
 } from "./index";
 import "../style/App.css";
 import {
@@ -35,7 +37,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cart, setCart] = useState(cartFromLocalStorage);
   const [cardNumber, setCardNumber] = useState("");
-  const [user, setUser] = useState({});
+  const [users, setUsers] = useState({});
   const [city, setCity] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [state, setState] = useState("");
@@ -44,8 +46,16 @@ const App = () => {
   const { productId } = useParams();
 
   useEffect(() => {
+    if (localStorage.token) {
+      setToken(localStorage.token);
+      setIsLoggedIn(!isLoggedIn);
+    }
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
+ 
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -59,6 +69,24 @@ const App = () => {
     };
     fetchAllProducts();
   }, []);
+
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      if(token) {
+      try {
+        const data = await getUsers(token);
+        console.log("This is the users data: ", data);
+        setUsers(data.users);
+        // console.log("This is the photo data", data[0].photo);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      return
+    }
+  }
+  fetchAllUsers();
+  }, [token]);
 
   const handleClick = (item) => {
     if (cart.some((cartItem) => cartItem.name === item.name)) {
@@ -106,12 +134,6 @@ const App = () => {
     setCart(items);
   };
 
-  useEffect(() => {
-    if (localStorage.token) {
-      setToken(localStorage.token);
-      setIsLoggedIn(!isLoggedIn);
-    }
-  }, []);
 
   //   // useEffect(() => {
   //   //     if (!isLoggedIn) {
@@ -133,7 +155,7 @@ const App = () => {
   return (
     <div className="app-container">
       <Router>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setToken={setToken}/>
         <Routes>
           <Route
             path="/"
@@ -218,6 +240,8 @@ const App = () => {
             }
           />
           <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/users" element={<AllUsers users={users} setUsers={setUsers}/>} />
         </Routes>
       </Router>
 

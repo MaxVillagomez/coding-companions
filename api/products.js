@@ -56,7 +56,7 @@ apiRouter.get("/:productId", async (req, res, next) => {
   }
 });
 
-apiRouter.post("/", async (req, res, next) => {
+apiRouter.post("/", requireAdmin, async (req, res, next) => {
   const { name, description, photo, quantity, price } = req.body;
 
   try {
@@ -74,7 +74,7 @@ apiRouter.post("/", async (req, res, next) => {
   }
 });
 
-apiRouter.patch("/:productId", async (req, res, next) => {
+apiRouter.patch("/:productId", requireAdmin, async (req, res, next) => {
   // console.log("This is the req body", req.body);
   const { productId } = req.params;
   console.log("this is the req params", req.params);
@@ -99,7 +99,7 @@ apiRouter.patch("/:productId", async (req, res, next) => {
   }
 });
 
-apiRouter.delete("/:productId", async (req, res, next) => {
+apiRouter.delete("/:productId", requireAdmin, async (req, res, next) => {
   const { productId } = req.params;
 
   try {

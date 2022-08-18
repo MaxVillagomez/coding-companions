@@ -2,9 +2,16 @@ const express = require("express");
 const apiRouter = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { createUser, getUserByEmail, getUser, getUserById } = require("../db");
+const { createUser, getUserByEmail, getUser, getUserById, getAllUsers } = require("../db");
 const { requireAdmin } = require("./utils");
 const { JWT_SECRET } = process.env;
+
+apiRouter.get("/", requireAdmin, async (req, res, next) =>{
+  const users = await getAllUsers();
+  res.send({
+    users
+  });
+});
 
 apiRouter.post("/register", async (req, res, next) => {
   const { email, password, streetAddress, city, state, zip, isAdmin } =
