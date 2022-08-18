@@ -1,9 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Checkout = ({ cardNumber, setCardNumber, cart, setCart }) => {
+  const navigate = useNavigate();
   const clearStorage = () => {
     localStorage.removeItem("cart");
+    navigate("/confirmation");
+    window.location.reload(false);
   };
   return (
     <div className="checkout-container">
@@ -66,7 +69,6 @@ const Checkout = ({ cardNumber, setCardNumber, cart, setCart }) => {
       </div>
 
       <div className="checkout-form-button-container">
-        <Link to="/confirmation">
           <button
             onClick={clearStorage}
             className="checkout-button"
@@ -74,7 +76,6 @@ const Checkout = ({ cardNumber, setCardNumber, cart, setCart }) => {
           >
             Pay Now
           </button>
-        </Link>
       </div>
     </div>
   );

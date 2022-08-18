@@ -50,9 +50,7 @@ const Login = (props) => {
           ></input>
         </label>
         <div className="login-button-and-link-container">
-          <Link to="/">
             <button type="submit">Login</button>
-          </Link>
           <Link className="register-link" to="/register">
             New User? Register here!
           </Link>

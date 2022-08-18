@@ -18,7 +18,7 @@ server.use(express.json());
 server.use((req, res, next) => {
   console.log("<__Body Logger START__>");
   console.log(req.body);
-  console.log("This is the user", req.user);
+  // console.log("This is the user", req.user);
   console.log("<__Body Logger END__>");
 
   next();
