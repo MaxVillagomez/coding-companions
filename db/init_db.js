@@ -274,62 +274,62 @@ async function createInitialCategories() {
   }
 }
 
-async function createInitialCartOrders() {
-  try {
-    const cart1 = await createCartOrder({
-      userId: 1,
-      active: true,
-    });
-    const cart2 = await createCartOrder({
-      userId: 2,
-      active: false,
-    });
-    const cart3 = await createCartOrder({
-      userId: 3,
-      active: true,
-    });
-  } catch (error) {
-    console.error("Error creating initial cart orders...");
-    throw error;
-  }
-}
+// async function createInitialCartOrders() {
+//   try {
+//     const cart1 = await createCartOrder({
+//       userId: 1,
+//       active: true,
+//     });
+//     const cart2 = await createCartOrder({
+//       userId: 2,
+//       active: false,
+//     });
+//     const cart3 = await createCartOrder({
+//       userId: 3,
+//       active: true,
+//     });
+//   } catch (error) {
+//     console.error("Error creating initial cart orders...");
+//     throw error;
+//   }
+// }
 
-async function createInitialIndividualCartItem() {
-  try {
-    console.log("Creating intial items");
-    const item1 = await createIndividualCartItem({
-      productId: 1,
-      priceAtPurchase: 14.99,
-      cartId: 1,
-      quantity: 1,
-    });
+// async function createInitialIndividualCartItem() {
+//   try {
+//     console.log("Creating intial items");
+//     const item1 = await createIndividualCartItem({
+//       productId: 1,
+//       priceAtPurchase: 14.99,
+//       cartId: 1,
+//       quantity: 1,
+//     });
 
-    const item2 = await createIndividualCartItem({
-      productId: 2,
-      priceAtPurchase: 123456.99,
-      cartId: 1,
-      quantity: 2,
-    });
+//     // const item2 = await createIndividualCartItem({
+//     //   productId: 2,
+//     //   priceAtPurchase: 123456.99,
+//     //   cartId: 1,
+//     //   quantity: 2,
+//     // });
 
-    const item3 = createIndividualCartItem({
-      productId: 3,
-      priceAtPurchase: 13.99,
-      cartId: 2,
-      quantity: 1,
-    });
+//     const item3 = createIndividualCartItem({
+//       productId: 3,
+//       priceAtPurchase: 13.99,
+//       cartId: 2,
+//       quantity: 1,
+//     });
 
-    const item4 = createIndividualCartItem({
-      productId: 3,
-      priceAtPurchase: 13.99,
-      cartId: 3,
-      quantitiy: 3,
-    });
-    console.log("Finished creating initial items");
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+//     const item4 = createIndividualCartItem({
+//       productId: 3,
+//       priceAtPurchase: 13.99,
+//       cartId: 3,
+//       quantitiy: 3,
+//     });
+//     console.log("Finished creating initial items");
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// }
 
 async function buildTables() {
   try {
