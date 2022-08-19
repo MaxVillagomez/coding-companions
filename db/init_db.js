@@ -36,8 +36,6 @@ async function dropTables() {
     console.log("Starting to drop tables...");
     await client.query(`
     DROP TABLE IF EXISTS categories;
-    DROP TABLE IF EXISTS individual_cart_items;
-    DROP TABLE IF EXISTS cart_orders;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
     
@@ -66,19 +64,12 @@ async function createTables() {
 
         CREATE TABLE products (
           id SERIAL PRIMARY KEY,
-          name VARCHAR(255) UNIQUE NOT NULL,
+          name VARCHAR(255) NOT NULL,
           description VARCHAR(255) NOT NULL,
           photo VARCHAR(255),
           quantity INTEGER,
           price NUMERIC(8, 2) NOT NULL
         );
-  
-        CREATE TABLE cart_orders (
-          id SERIAL PRIMARY KEY,
-          user_id INTEGER REFERENCES users(id),
-          active BOOLEAN DEFAULT true
-         );
-
 
          CREATE TABLE categories (
           id SERIAL PRIMARY KEY,
@@ -87,16 +78,7 @@ async function createTables() {
           products_included VARCHAR(255)
          
         );
-  
-        CREATE TABLE individual_cart_items (
-          id SERIAL PRIMARY KEY,
-          product_id INTEGER REFERENCES products(id),
-          price_at_purchase NUMERIC(8,2), 
-          cart_id INTEGER REFERENCES cart_orders(id),
-          quantity INTEGER
-        );
-       
-    
+          
     `);
 
     console.log("Finished creating tables");
@@ -116,7 +98,7 @@ async function createInitialUsers() {
       city: "Bloomingdale",
       state: "Iowa",
       zip: "44356",
-      isAdmin: false,
+      isAdmin: true,
     });
     const austin = await createUser({
       email: "austin@austin.com",
@@ -136,6 +118,16 @@ async function createInitialUsers() {
       zip: "61705",
       isAdmin: true,
     });
+    const admin = await createUser({
+      email: "admin",
+      password: "admin",
+      streetAddress: "Admin Lane",
+      city: "Admin City",
+      state: "New Admin",
+      zip: "61705",
+      isAdmin: true,
+    });
+    
     console.log("Finished creating users...");
   } catch (error) {
     console.error("Error creating initial users");
@@ -341,8 +333,6 @@ async function buildTables() {
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCategories();
-    await createInitialCartOrders();
-    await createInitialIndividualCartItem();
     // build tables in correct order
   } catch (error) {
     throw error;
@@ -394,14 +384,6 @@ async function testDB() {
     const categories = await getAllCategories();
     console.log("Get all Categories Result: ", categories);
 
-    console.log("Calling all cart orders");
-    const cart = await getAllCartOrders();
-    console.log("Get all Cart Orders Result: ", cart);
-
-    console.log("Calling all Individual Items");
-    const item = await getAllIndividualCartItems();
-    console.log("Get all Individual Items Result: ", item);
-
     console.log("Calling get category by id");
     const categoryId = await getCategoryById(1);
     console.log("Get Category by Id Result: ", categoryId);
@@ -409,14 +391,6 @@ async function testDB() {
     console.log("Calling get category by name at Villains");
     const category2Name = await getCategoryByName("Villains");
     console.log("Get category by name result", category2Name);
-
-    console.log("Calling get Individual Cart by Id at 1");
-    const idCart = await getIndividualCartById(1);
-    console.log("Get Individual Cart by Id Result: ", idCart);
-
-    console.log("Calling get Individual Cart by Cart Id at 1");
-    const cartId1 = await getIndividualCartByCartId(2);
-    console.log("Get Individual Cart by Cart Id Result: ", cartId1);
 
     // console.log("Calling update Product at ID 3");
     // const update = await updateProduct(3, {
@@ -431,29 +405,6 @@ async function testDB() {
     const remove = await destroyProduct(4);
     console.log("Delete result", remove);
 
-    console.log("Calling get Cart Order By ID");
-    const cartOrder1 = await getCartOrderById(1);
-    console.log("Get Cart By Id Result: ", cartOrder1);
-
-    console.log("Calling Get Cart Order By User Id");
-    const userCartOrder = await getCartOrderByUserId(3);
-    console.log("Get Cart By User Id Result: ", userCartOrder);
-
-    console.log("Calling Get All Active Carts");
-    const active = await getAllActiveCarts();
-    console.log("Get All Active Carts Result ", active);
-
-    console.log("Calling Get All Inactive Carts");
-    const inactive = await getAllInactiveCarts();
-    console.log("Get ALL Inactive Carts Result ", inactive);
-
-    console.log("Calling destroy individual cart item");
-    const deleteItem = await destroyIndividualCartItem(4);
-    console.log("Destroy individual cart item result: ", deleteItem);
-
-    console.log("Calling update quantity of item");
-    const updateQuantity = await updateQuantityOfItem(1, 100);
-    console.log("Update quantity result ", updateQuantity);
   } catch (error) {
     console.error("Error testing database");
     throw error;

@@ -8,12 +8,12 @@ const AllUsers = ({users, setUsers}) => {
                 users.map((user) => {
                     return (
                         <div className="all-users" key={user.id}>
-                            <h1>{user.email}</h1>
-                            <h3>{user.street_address}</h3>
-                            <h3>{user.city}</h3>
-                            <h3>{user.state}</h3>
-                            <h3>{user.zip}</h3>
-                            {user.is_admin ? (<h3>Admin</h3>) : (<h3>Customer</h3>)}
+                            <h3>Email: {user.email}</h3>
+                            <h3>Street Address: {user.street_address}</h3>
+                            <h3>City: {user.city}</h3>
+                            <h3>State: {user.state}</h3>
+                            <h3>Zip: {user.zip}</h3>
+                            {user.is_admin ? (<h3>Status: Admin</h3>) : (<h3>Status: Customer</h3>)}
                         </div>
                     )
                 })

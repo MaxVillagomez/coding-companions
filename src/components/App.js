@@ -36,6 +36,7 @@ const App = () => {
   const [indivProduct, setIndivProduct] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [token, setToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cart, setCart] = useState(cartFromLocalStorage);
@@ -50,13 +51,17 @@ const App = () => {
   const [photo, setPhoto] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [error, setError] = useState(null)
 
+ 
   const { productId } = useParams();
 
   useEffect(() => {
     if (localStorage.token) {
       setToken(localStorage.token);
       setIsLoggedIn(!isLoggedIn);
+      setIsAdmin(!isAdmin)
     }
   }, []);
 
@@ -142,28 +147,10 @@ const App = () => {
     setCart(items);
   };
 
-
-  //   // useEffect(() => {
-  //   //     if (!isLoggedIn) {
-  //   //         setCart('');
-  //   //     }
-  //   // })
-
-  // useEffect(() => {
-  //     if (token) {
-  //         const fetchMe = async () => {
-  //             const { data } = await getMe(token);
-  //             console.log("This is the data:", data);
-  //             setUser({  });
-  //         };
-  //         fetchMe();
-  //     }
-  // }, [isLoggedIn]);
-
   return (
     <div className="app-container">
       <Router>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setToken={setToken}/>
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
         <Routes>
           <Route
             path="/"
@@ -196,6 +183,8 @@ const App = () => {
                 token={token}
                 setToken={setToken}
                 setIsLoggedIn={setIsLoggedIn}
+                error={error}
+                setError={setError}
               />
             }
           />
@@ -207,6 +196,8 @@ const App = () => {
                 setEmail={setEmail}
                 password={password}
                 setPassword={setPassword}
+                confirmPassword={confirmPassword}
+                setConfirmPassword={setConfirmPassword}
                 streetAddress={streetAddress}
                 setStreetAddress={setStreetAddress}
                 state={state}
@@ -289,7 +280,7 @@ const App = () => {
       </Router>
 
       <footer className="footer-container">
-        <p>Website built and designed by Luke, Austin, and Max</p>
+        <p>Website built and designed by Luke Bourneuf, Austin Benton, and Max Villagomez</p>
       </footer>
     </div>
   );

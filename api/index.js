@@ -4,6 +4,7 @@ apiRouter.use(cors());
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 const { getUserById } = require("../db");
+
 apiRouter.get("/", (req, res, next) => {
   res.send({
     message: "API is under construction!",
@@ -24,23 +25,23 @@ apiRouter.use(async (req, res, next) => {
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length);
     try {
-      const { id } = jwt.verify(token, JWT_SECRET);
-
+      const userToken = jwt.verify(token, JWT_SECRET);
+      const id = userToken && userToken.id
       console.log("this is api index id: ", id);
-      if (id) {
+      if (!id) {
+        res.status(401);
+        next({
+          name: "AuthorizationHeaderError",
+          message: `Authorization token must start with ${prefix}`,
+        })
+      } else {
         req.user = await getUserById(id);
         next();
       }
     } catch (error) {
       next(error);
     }
-  } else {
-    res.send({
-      name: "AuthorizationHeaderError",
-      message: `Authorization token must start with ${prefix}`,
-    });
-    next();
-  }
+  } 
 });
 
 apiRouter.use((req, res, next) => {

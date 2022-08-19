@@ -7,10 +7,14 @@ const { requireAdmin } = require("./utils");
 const { JWT_SECRET } = process.env;
 
 apiRouter.get("/", requireAdmin, async (req, res, next) =>{
-  const users = await getAllUsers();
-  res.send({
-    users
-  });
+  try {
+    const users = await getAllUsers();
+    res.send({
+      users
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 apiRouter.post("/register", async (req, res, next) => {
@@ -60,8 +64,8 @@ apiRouter.post("/login", async (req, res, next) => {
     // const hashedPassword = user.password;
     // const isValid = await bcrypt.compare(password, hashedPassword);
     console.log("This is our secret", JWT_SECRET);
-    const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
     if (user) {
+      const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
       res.send({
         user,
         message: "Welcome Back!",
@@ -75,7 +79,7 @@ apiRouter.post("/login", async (req, res, next) => {
     }
   } catch (error) {
     console.error("Trouble logging in.");
-    throw error;
+    next(error);
   }
 });
 
@@ -101,7 +105,7 @@ apiRouter.get("/me", async (req, res, next) => {
       }
     } catch (error) {
       console.error("Trouble getting me");
-      throw error;
+      next(error);
     }
   }
 });

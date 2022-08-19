@@ -62,7 +62,7 @@ export async function login({ email, password }) {
     console.log("this is the log in data: ", data);
     return data;
   } catch (error) {
-    throw error;
+    next(error);
   }
 }
 

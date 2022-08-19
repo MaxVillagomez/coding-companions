@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ isLoggedIn, setToken, setIsLoggedIn }) => {
+const Navbar = ({ isLoggedIn, setToken, setIsLoggedIn, isAdmin, setIsAdmin }) => {
+  
   function logOut() {
     delete localStorage.token;
     setToken("");
     setIsLoggedIn(false);
-    // setUser({});
+    window.location.reload(false);
   }
+
   return (
     <header>
       <nav className="nav-bar">
@@ -22,9 +24,12 @@ const Navbar = ({ isLoggedIn, setToken, setIsLoggedIn }) => {
           <Link className="nav-link" to="/cart">
             Cart
           </Link>
-          <Link className="nav-link" to="/admin">
-            Admin
-          </Link>
+          { isAdmin
+            ? ( <Link className="nav-link" to="/admin">
+                  Admin
+                </Link>)
+            : null
+          }
           {isLoggedIn ? (
             <button onClick={logOut}>Logout</button>
           ) : (
