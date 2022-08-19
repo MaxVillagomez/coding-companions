@@ -11,19 +11,30 @@ const Login = (props) => {
     token,
     setToken,
     setIsLoggedIn,
+    error,
+    setError
   } = props;
+
   const navigate = useNavigate();
+
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const { user, token } = await login({ email, password });
+    const data = await login({ email, password });
+    const {user, token} = data;
+    if (data.error)
     console.log("this is the data: ", user);
-    localStorage.token = token;
-    setIsLoggedIn(true);
-    setToken(localStorage.token);
+    if (token) {
+      localStorage.token = token;
+      setIsLoggedIn(true);
+      setToken(localStorage.token);
+      navigate("/", { replace: true });
+    } else {
+      alert("Incorrect Credentials. Please check your credentials and log in again.")
+    }
     setEmail("");
     setPassword("");
-    navigate("/", { replace: true });
+    window.location.reload(false);
   }
 
   return (

@@ -7,6 +7,8 @@ const Register = ({
   setEmail,
   password,
   setPassword,
+  confirmPassword,
+  setConfirmPassword,
   city,
   setCity,
   zip,

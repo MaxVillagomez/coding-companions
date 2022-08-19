@@ -26,12 +26,13 @@ const EditIndivProduct = (props) => {
         event.preventDefault();
         if (token) {
             try {
+                console.log("this is name in editindivproduct: ", name);
                 const data = await editProduct({productId, name, description, photo, quantity, price, token});
-                setName('');
-                setDescription('');
-                setPhoto('');
-                setQuantity(0);
-                setPrice(0);
+                // setName('');
+                // setDescription('');
+                // setPhoto('');
+                // setQuantity(0);
+                // setPrice(0);
                 return data;
             } catch (error) {
                 throw error;
@@ -65,6 +66,11 @@ const EditIndivProduct = (props) => {
       try {
         const indivData = await getProductById(productId);
         setIndivProduct(indivData);
+        setName(indivData.name);
+        setDescription(indivData.description);
+        setPrice(indivData.price);
+        setPhoto(indivData.photo);
+        setQuantity(indivData.quantity);
         console.log("This is the indiv data", indivData);
       } catch (error) {
         console.error(error);
@@ -102,7 +108,7 @@ const EditIndivProduct = (props) => {
                     Name:
                     <input 
                         type='text' 
-                        defaultValue={indivProduct.name}
+                        value={name}
                         onChange={(event) => {setName(event.target.value)}}
                     ></input>
                 </label>
@@ -110,7 +116,7 @@ const EditIndivProduct = (props) => {
                     Description:
                     <input 
                         type='text'
-                        defaultValue={indivProduct.description}
+                        value={description}
                         onChange={(event) => {setDescription(event.target.value)}}
                     ></input>
                 </label>
@@ -118,7 +124,7 @@ const EditIndivProduct = (props) => {
                     Photo URL:
                     <input 
                         type='text'
-                        defaultValue={indivProduct.photo}
+                        value={photo}
                         onChange={(event) => {setPhoto(event.target.value)}}
                     ></input>
                 </label>
@@ -126,7 +132,7 @@ const EditIndivProduct = (props) => {
                     Quantity:
                     <input 
                         type='text'
-                        defaultValue={indivProduct.quantity}
+                        value={quantity}
                         onChange={(event) => {setQuantity(event.target.value)}}
                     ></input>
                 </label>
@@ -134,7 +140,7 @@ const EditIndivProduct = (props) => {
                     Price:
                     <input 
                         type='text'
-                        defaultValue={indivProduct.price}
+                        value={price}
                         onChange={(event) => {setPrice(event.target.value)}}
                     ></input>
                 </label>
