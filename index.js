@@ -24,20 +24,20 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use(
-  session({
-    secret: `${process.env.JWT_SECRET}`,
-    resave: false,
-    saveUnitialized: false,
-  })
-);
+// server.use(
+//   session({
+//     secret: `${process.env.JWT_SECRET}`,
+//     resave: false,
+//     saveUnitialized: false,
+//   })
+// );
 
-server.get("/", (req, res) => {
-  console.log(req.session);
-  console.log("The actual session id: ", req.sessionID);
-  res.session.viewCount += 1;
-  res.send(`View count at ${req.session.viewCount}`);
-});
+// server.get("/", (req, res) => {
+//   console.log(req.session);
+//   console.log("The actual session id: ", req.sessionID);
+//   res.session.viewCount += 1;
+//   res.send(`View count at ${req.session.viewCount}`);
+// });
 
 // here's our static files
 const path = require("path");

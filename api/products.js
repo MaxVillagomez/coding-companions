@@ -58,7 +58,7 @@ apiRouter.get("/:productId", async (req, res, next) => {
 
 apiRouter.post("/", requireAdmin, async (req, res, next) => {
   const { name, description, photo, quantity, price } = req.body;
-
+  console.log("Yeeeeeee ", req.user);
   try {
     const product = await createProduct({
       name,

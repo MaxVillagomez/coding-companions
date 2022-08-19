@@ -26,7 +26,7 @@ const EditIndivProduct = (props) => {
         event.preventDefault();
         if (token) {
             try {
-                const data = await editProduct({name, description, photo, quantity, price});
+                const data = await editProduct({productId, name, description, photo, quantity, price, token});
                 setName('');
                 setDescription('');
                 setPhoto('');
@@ -45,7 +45,7 @@ const EditIndivProduct = (props) => {
         event.preventDefault();
         if (token) {
             try {
-                const data = await deleteProduct(productId)
+                const data = await deleteProduct(token, productId)
                 return data;
             } catch (error) {
                 throw error;
