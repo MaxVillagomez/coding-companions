@@ -15,6 +15,7 @@ const Register = ({
   setState,
   streetAddress,
   setStreetAddress,
+  isLoggedIn
 }) => {
   const navigate = useNavigate();
   async function handleSubmit(event) {
@@ -33,7 +34,7 @@ const Register = ({
       console.log("This is token in register component: ", token);
     }
     console.log("This the user data from register component: ", result);
-    navigate("/", { replace: true });
+    navigate("/login", { replace: true });
   }
   return (
     <div className="form-container">

@@ -215,6 +215,7 @@ const App = () => {
                 setCity={setCity}
                 zip={zip}
                 setZip={setZip}
+                setIsLoggedIn={isLoggedIn}
               />
             }
           />

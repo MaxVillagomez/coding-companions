@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 
 const Admin = () => {
     return(
-        <div>
+        <div className="admin-button-container">
             <Link to="/admin/users">
-            <button>View All Users</button>
+            <button className="admin-button">View All Users</button>
             </Link>
             <Link to="/admin/createproduct">
-            <button>Create New Product</button>
+            <button className="admin-button">Create New Product</button>
             </Link>
             <Link to="/admin/products">
-            <button >Edit Product</button>
+            <button className="admin-button">Edit Product</button>
             </Link>
         </div>
     )

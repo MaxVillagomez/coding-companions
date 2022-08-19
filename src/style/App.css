@@ -236,9 +236,10 @@ button:hover {
 .cart-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   font-family: "Open Sans", sans-serif;
   color: #1d3557ff;
-  width: 90%;
+  width: 100%;
 }
 
 .cart-box {
@@ -261,6 +262,7 @@ button {
   background-color: #f1faee;
   border-radius: 4px;
   font-size: 15px;
+  font-family: "Open Sans", sans-serif;
 }
 
 .cart-button {
@@ -270,12 +272,19 @@ button {
   background-color: #e63946ff;
   border-radius: 4px;
   font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.add-items-to-cart-text {
+  display: flex;
+  justify-content: center;
 }
 
 .checkout-button-container {
   display: flex;
   justify-content: flex-end;
   margin-top: 50px;
+  margin-right: 50px;
 }
 
 .checkout-button {
@@ -342,7 +351,7 @@ button {
 .subtotal {
   display: flex;
   justify-content: flex-end;
-  margin-right: 20px;
+  margin-right: 60px;
   font-size: 20px;
 }
 
@@ -364,6 +373,22 @@ button {
 /* .subtotal {
   align-items:;
 } */
+
+.admin-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.admin-button {
+  text-decoration: none;
+  border: none;
+  color: #f1faee;
+  background-color: #e63946ff;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+}
 
 .footer-container {
   margin-left: 30px;
