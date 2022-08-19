@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
 // to your React UI through AJAX calls
@@ -92,45 +93,44 @@ export async function register ({ email, password, streetAddress, city, state, z
   }
 }
 
-export async function addProduct (token, name, description, photo, quantity, price) {
+
+
+export async function addProduct ({name, description, photo, quantity, price, token}) {
+  console.log("This is token in addProduct: ", token);
   try {
-    const {data: products} = await axios.post("/api/products",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        name,
+    const { data } = await axios.post("/api/products",
+        {name,
         description,
         photo,
         quantity, 
-        price
-      })
+        price}, 
+        {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
     });
-    console.log("this is data in addProduct axios: ", products);
-    return products;
+    console.log("this is data in addProduct axios: ", data);
+    return data;
   } catch (error) {
     console.error("Trouble adding product...")
     throw error;
   }
 }
 
-export async function editProduct (productId, token, name, description, photo, quantity, price) {
+export async function editProduct ({productId, name, description, photo, quantity, price, token}) {
   try {
     const {data} = await axios.patch(`/api/products/${productId}`,
+    {name,
+    description,
+    photo,
+    quantity, 
+    price},
     {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        name,
-        description,
-        photo,
-        quantity, 
-        price
-      })
+      }
     });
     return data;
   } catch (error) {

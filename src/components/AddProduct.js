@@ -20,7 +20,7 @@ const AddProduct = (props) => {
         event.preventDefault();
         if (token) {
             try {
-                const data = await addProduct({name, description, photo, quantity, price});
+                const data = await addProduct({name, description, photo, quantity, price, token});
                 setName('');
                 setDescription('');
                 setPhoto('');
