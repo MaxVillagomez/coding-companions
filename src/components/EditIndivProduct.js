@@ -79,14 +79,6 @@ const EditIndivProduct = (props) => {
     fetchProductById();
   }, [productId]);
 
-//   const handleFormChange = (event) => {
-//     setName(event.target.value);
-//     setDescription({[event.target.name]: event.target.value});
-//     setPhoto({[event.target.name]: event.target.value});
-//     setQuantity({[event.target.name]: event.target.value});
-//     setPrice({[event.target.name]: event.target.value});
-//   }
-
 
     return(
         <div className="form-container">
