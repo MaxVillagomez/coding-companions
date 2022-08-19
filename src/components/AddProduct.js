@@ -37,49 +37,51 @@ const AddProduct = (props) => {
     }
     
     return (
-        <form onSubmit={handleSubmit}>
-        <label>
-            Name:
-            <input 
-                type='text' 
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-            ></input>
-        </label>
-        <label>
-            Description:
-            <input 
-                type='text'
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-            ></input>
-        </label>
-        <label>
-            Photo:
-            <input 
-                type='text'
-                value={photo}
-                onChange={(event) => setPhoto(event.target.value)}
-            ></input>
-        </label>
-        <label>
-            Quantity:
-            <input 
-                type='text'
-                value={quantity}
-                onChange={(event) => setQuantity(event.target.value)}
-            ></input>
-        </label>
-        <label>
-            Price:
-            <input 
-                type='text'
-                value={price}
-                onChange={(event) => setPrice(event.target.value)}
-            ></input>
-        </label>
-        <button type='submit'>Create Product</button>
-    </form>
+        <div className="form-container">
+            <form className="add-product-form" onSubmit={handleSubmit}>
+                <label>
+                    Name:
+                    <input 
+                        type='text' 
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                    ></input>
+                </label>
+                <label>
+                    Description:
+                    <input 
+                        type='text'
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                    ></input>
+                </label>
+                <label>
+                    Photo URL:
+                    <input 
+                        type='text'
+                        value={photo}
+                        onChange={(event) => setPhoto(event.target.value)}
+                    ></input>
+                </label>
+                <label>
+                    Quantity:
+                    <input 
+                        type='text'
+                        value={quantity}
+                        onChange={(event) => setQuantity(event.target.value)}
+                    ></input>
+                </label>
+                <label>
+                    Price:
+                    <input 
+                        type='text'
+                        value={price}
+                        onChange={(event) => setPrice(event.target.value)}
+                    ></input>
+                </label>
+                <button type='submit'>Create Product</button>
+        </form>
+    </div>
     )
 }
 

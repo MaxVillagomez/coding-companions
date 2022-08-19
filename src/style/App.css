@@ -144,7 +144,6 @@ img {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
 }
 
@@ -378,6 +377,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .admin-button {
@@ -386,8 +386,71 @@ button {
   color: #f1faee;
   background-color: #e63946ff;
   border-radius: 4px;
-  font-size: 15px;
+  font-size: 25px;
   font-family: "Open Sans", sans-serif;
+  margin-bottom: 100px;
+  padding: 10px;
+}
+
+.all-users-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  /* padding: 50px; */
+  gap: 30px;
+}
+
+.all-users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e63946ff;
+  color: #f1faee;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  width: 30%;
+  padding: 8px;
+  margin-top: 20px;
+  border: 2px solid black;
+  box-shadow: 4px 4px 4px lightslategray;
+}
+
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  border: 1px;
+  background-color: #e63946;
+  color: #f1faee;
+  border-radius: 7px;
+  padding: 40px;
+}
+
+.edit-product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  border: 1px;
+  background-color: #e63946;
+  color: #f1faee;
+  border-radius: 7px;
+  padding: 40px;
+}
+
+.edit-and-delete-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 82px;
+  margin-top: 30px;
+  gap: 20px;
 }
 
 .footer-container {

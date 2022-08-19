@@ -73,9 +73,17 @@ const EditIndivProduct = (props) => {
     fetchProductById();
   }, [productId]);
 
+//   const handleFormChange = (event) => {
+//     setName(event.target.value);
+//     setDescription({[event.target.name]: event.target.value});
+//     setPhoto({[event.target.name]: event.target.value});
+//     setQuantity({[event.target.name]: event.target.value});
+//     setPrice({[event.target.name]: event.target.value});
+//   }
+
 
     return(
-        <div>
+        <div className="form-container">
             <div className="all-products">
                 {indivProduct && indivProduct.id ? (
                 <div className="indiv-product" key={productId.id}>
@@ -89,49 +97,52 @@ const EditIndivProduct = (props) => {
                 )}
             </div>
 
-            <form>
+            <form className="edit-product-form">
                 <label>
                     Name:
                     <input 
                         type='text' 
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        defaultValue={indivProduct.name}
+                        onChange={(event) => {setName(event.target.value)}}
                     ></input>
                 </label>
                 <label>
                     Description:
                     <input 
                         type='text'
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
+                        defaultValue={indivProduct.description}
+                        onChange={(event) => {setDescription(event.target.value)}}
                     ></input>
                 </label>
                 <label>
-                    Photo:
+                    Photo URL:
                     <input 
                         type='text'
-                        value={photo}
-                        onChange={(event) => setPhoto(event.target.value)}
+                        defaultValue={indivProduct.photo}
+                        onChange={(event) => {setPhoto(event.target.value)}}
                     ></input>
                 </label>
                 <label>
                     Quantity:
                     <input 
                         type='text'
-                        value={quantity}
-                        onChange={(event) => setQuantity(event.target.value)}
+                        defaultValue={indivProduct.quantity}
+                        onChange={(event) => {setQuantity(event.target.value)}}
                     ></input>
                 </label>
                 <label>
                     Price:
                     <input 
                         type='text'
-                        value={price}
-                        onChange={(event) => setPrice(event.target.value)}
+                        defaultValue={indivProduct.price}
+                        onChange={(event) => {setPrice(event.target.value)}}
                     ></input>
                 </label>
-                <button type='submit' onClick={handleSubmit}>Edit Product</button>
-                <button type='submit' onClick={handleDelete}>Delete Product</button>
+                
+                <div className="edit-and-delete-button-container">
+                    <button type='submit' onClick={handleSubmit}>Edit Product</button>
+                    <button type='submit' onClick={handleDelete}>Delete Product</button>
+                </div>
             </form>
         </div>
     )
