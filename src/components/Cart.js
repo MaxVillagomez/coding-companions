@@ -44,7 +44,7 @@ const Cart = ({
           <button className="checkout-button">Proceed to Checkout</button>
         </Link>
       ) : (
-        <h1>Add Items to your Cart</h1>
+        <h1 className="add-items-to-cart-text">Your cart is empty.</h1>
       )}
     </div>
   );
