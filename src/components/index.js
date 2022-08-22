@@ -13,3 +13,4 @@ export { default as AllUsers } from "./AllUsers";
 export { default as AddProduct } from "./AddProduct";
 export { default as EditIndivProduct } from "./EditIndivProduct";
 export { default as EditProduct } from "./EditProduct";
+export {default as Footer} from "./Footer"
