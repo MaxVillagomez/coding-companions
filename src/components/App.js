@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
+import githublogo from "./imgs/GitHub-Mark-Light-120px-plus.png" 
 
 import {
   getAllProducts,
@@ -303,10 +304,15 @@ const App = () => {
       </Router>
 
       <footer className="footer-container">
-        <p>
-          Website built and designed by Luke Bourneuf, Austin Benton, and Max
-          Villagomez
-        </p>
+        <div className="footer-text-container">
+          <p>
+            Website built and designed by Luke Bourneuf, Austin Benton, and Max
+            Villagomez
+          </p>
+        </div>
+        <div className="github-logo">
+          <img src={githublogo}/>
+        </div>
       </footer>
     </div>
   );
