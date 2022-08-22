@@ -18,10 +18,10 @@ const Homepage = () => {
           />
           <h5>$826.22</h5>
           <a href="https://www.linkedin.com/in/lbourneuf/" target="_blank">
-            <button>View Linkedin</button>
+            <button className="dev-link-button">View Linkedin</button>
           </a>
           <a href="https://github.com/lbourneuf" target="_blank">
-            <button>View Github</button>
+            <button className="dev-link-button">View Github</button>
           </a>
         </div>
 
@@ -33,10 +33,10 @@ const Homepage = () => {
           />
           <h5>$826.22</h5>
           <a href="https://www.linkedin.com/in/max-villagomez/" target="_blank">
-            <button>View Linkedin</button>
+            <button className="dev-link-button">View Linkedin</button>
           </a>
           <a href="https://github.com/MaxVillagomez" target="_blank">
-            <button>View Github</button>
+            <button className="dev-link-button">View Github</button>
           </a>
         </div>
 
@@ -51,10 +51,10 @@ const Homepage = () => {
             href="https://www.linkedin.com/in/austin-mic-benton/"
             target="_blank"
           >
-            <button>View Linkedin</button>
+            <button className="dev-link-button">View Linkedin</button>
           </a>
           <a href="https://github.com/austinmbenton" target="_blank">
-            <button>View Github</button>
+            <button className="dev-link-button">View Github</button>
           </a>
         </div>
       </div>
