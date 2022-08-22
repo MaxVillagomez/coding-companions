@@ -10,9 +10,6 @@ const Footer = () => {
             Villagomez
           </p>
         </div>
-        <div>
-            <button>Demo User</button>
-        </div>
         <a href="https://github.com/Grace-Hopper-Capstone-Group-3/Grace-Shopper-Group-3.git">
           <div className="github-logo">
             <img src={githublogo}/>

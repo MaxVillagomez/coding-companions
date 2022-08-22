@@ -127,6 +127,16 @@ async function createInitialUsers() {
       zip: "61705",
       isAdmin: true,
     });
+    const demo = await createUser({
+      email: "demo",
+      password: "demo",
+      streetAddress: "Demo St",
+      city: "Demo city",
+      state: "DM",
+      zip: "09878",
+      isAdmin: false
+    });
+
     
     console.log("Finished creating users...");
   } catch (error) {

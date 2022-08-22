@@ -13,6 +13,8 @@ const Login = (props) => {
     setIsLoggedIn,
     error,
     setError,
+    demoEmail,
+    demoPassword,
   } = props;
 
   const navigate = useNavigate();
@@ -36,6 +38,13 @@ const Login = (props) => {
     setEmail("");
     setPassword("");
     window.location.reload(false);
+  }
+
+  async function handleDemoSubmit (event) {
+    event.preventDefault();
+    setEmail("demo");
+    setPassword("demo");
+    setIsLoggedIn(true);
   }
 
   return (
@@ -62,6 +71,7 @@ const Login = (props) => {
         </label>
         <div className="login-button-and-link-container">
           <button type="submit">Login</button>
+          <button type="submit" onClick={handleDemoSubmit}>Demo Login</button>
           <Link className="register-link" to="/register">
             New User? Register here!
           </Link>
