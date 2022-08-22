@@ -38,9 +38,9 @@ Coding Companions are a selection of miniature figurines that help software engi
 
 ### To get a local copy on your machine follow these steps: 
 * Clone Repo: 
-``` https://github.com/yellow-yetis/american-spirit.git ```
+``` https://github.com/Grace-Hopper-Capstone-Group-3/Grace-Shopper-Group-3.git ```
 OR 
-``` git@github.com:yellow-yetis/american-spirit.git ```
+``` git@github.com:Grace-Hopper-Capstone-Group-3/Grace-Shopper-Group-3.git ```
 
 * Install Packages: 
 ``` npm install ```
