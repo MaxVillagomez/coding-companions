@@ -306,7 +306,7 @@ const App = () => {
         </Routes>
       </Router>
 
-      <Footer/>
+      <Footer isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>
     </div>
   );
 };
