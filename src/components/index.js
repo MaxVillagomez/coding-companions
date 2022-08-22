@@ -6,11 +6,10 @@ export { default as Login } from "./Login";
 export { default as Register } from "./Register";
 export { default as IndividualProduct } from "./IndividualProduct";
 export { default as Cart } from "./Cart";
-export { default as Checkout} from "./Checkout";
-export { default as Confirmation} from "./Confirmation";
+export { default as Checkout } from "./Checkout";
+export { default as Confirmation } from "./Confirmation";
 export { default as Admin } from "./Admin";
-export { default as AllUsers} from "./AllUsers";
-export {default as AddProduct} from "./AddProduct";
-export {default as EditIndivProduct} from "./EditIndivProduct";
-export {default as EditProduct} from "./EditProduct";
-
+export { default as AllUsers } from "./AllUsers";
+export { default as AddProduct } from "./AddProduct";
+export { default as EditIndivProduct } from "./EditIndivProduct";
+export { default as EditProduct } from "./EditProduct";

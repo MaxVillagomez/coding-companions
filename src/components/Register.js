@@ -17,27 +17,32 @@ const Register = ({
   setState,
   streetAddress,
   setStreetAddress,
-  isLoggedIn
+  isLoggedIn,
 }) => {
   const navigate = useNavigate();
   async function handleSubmit(event) {
     event.preventDefault();
-    const result = await register({
-      email,
-      password,
-      streetAddress,
-      city,
-      state,
-      zip,
-    });
-    if (result) {
-      const token = result.token;
-      localStorage.setItem("token", token);
-      console.log("This is token in register component: ", token);
+    if (password === confirmPassword) {
+      const result = await register({
+        email,
+        password,
+        streetAddress,
+        city,
+        state,
+        zip,
+      });
+      if (result) {
+        const token = result.token;
+        localStorage.setItem("token", token);
+        console.log("This is token in register component: ", token);
+        console.log("This the user data from register component: ", result);
+        navigate("/login", { replace: true });
+      }
+    } else if (password !== confirmPassword) {
+      alert("Passwords do not match. Please try again.");
     }
-    console.log("This the user data from register component: ", result);
-    navigate("/login", { replace: true });
   }
+
   return (
     <div className="form-container">
       <form className="login-form" onSubmit={handleSubmit}>
@@ -45,7 +50,7 @@ const Register = ({
           Email:
           <input
             type="text"
-            placeholder="email"
+            placeholder="Email"
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
@@ -55,8 +60,8 @@ const Register = ({
         <label className="label">
           Password:
           <input
-            type="text"
-            placeholder="password"
+            type="password"
+            placeholder="Password"
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
@@ -64,10 +69,21 @@ const Register = ({
           ></input>
         </label>
         <label className="label">
+          Confirm Password:
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(event) => {
+              setConfirmPassword(event.target.value);
+            }}
+          ></input>
+        </label>
+        <label className="label">
           Street Address:
           <input
             type="text"
-            placeholder="street address"
+            placeholder="Street Address"
             value={streetAddress}
             onChange={(event) => {
               setStreetAddress(event.target.value);
@@ -78,7 +94,7 @@ const Register = ({
           City:
           <input
             type="text"
-            placeholder="city"
+            placeholder="City"
             value={city}
             onChange={(event) => {
               setCity(event.target.value);
@@ -89,7 +105,7 @@ const Register = ({
           State:
           <input
             type="text"
-            placeholder="state"
+            placeholder="State"
             value={state}
             onChange={(event) => {
               setState(event.target.value);
@@ -100,7 +116,7 @@ const Register = ({
           Zip:
           <input
             type="text"
-            placeholder="zip"
+            placeholder="Zip"
             value={zip}
             onChange={(event) => {
               setZip(event.target.value);
