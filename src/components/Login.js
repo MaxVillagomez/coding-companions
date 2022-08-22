@@ -12,7 +12,7 @@ const Login = (props) => {
     setToken,
     setIsLoggedIn,
     error,
-    setError
+    setError,
   } = props;
 
   const navigate = useNavigate();
@@ -21,16 +21,17 @@ const Login = (props) => {
     event.preventDefault();
 
     const data = await login({ email, password });
-    const {user, token} = data;
-    if (data.error)
-    console.log("this is the data: ", user);
+    const { user, token } = data;
+    if (data.error) console.log("this is the data: ", user);
     if (token) {
       localStorage.token = token;
       setIsLoggedIn(true);
       setToken(localStorage.token);
       navigate("/", { replace: true });
     } else {
-      alert("Incorrect Credentials. Please check your credentials and log in again.")
+      alert(
+        "Incorrect Credentials. Please check your credentials and log in again."
+      );
     }
     setEmail("");
     setPassword("");
@@ -53,14 +54,14 @@ const Login = (props) => {
         <label className="label">
           Password:
           <input
-            type="text"
+            type="password"
             value={password}
             placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
           ></input>
         </label>
         <div className="login-button-and-link-container">
-            <button type="submit">Login</button>
+          <button type="submit">Login</button>
           <Link className="register-link" to="/register">
             New User? Register here!
           </Link>

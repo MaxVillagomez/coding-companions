@@ -2,15 +2,21 @@ const express = require("express");
 const apiRouter = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { createUser, getUserByEmail, getUser, getUserById, getAllUsers } = require("../db");
+const {
+  createUser,
+  getUserByEmail,
+  getUser,
+  getUserById,
+  getAllUsers,
+} = require("../db");
 const { requireAdmin } = require("./utils");
 const { JWT_SECRET } = process.env;
 
-apiRouter.get("/", requireAdmin, async (req, res, next) =>{
+apiRouter.get("/", requireAdmin, async (req, res, next) => {
   try {
     const users = await getAllUsers();
     res.send({
-      users
+      users,
     });
   } catch (error) {
     next(error);
@@ -30,6 +36,7 @@ apiRouter.post("/register", async (req, res, next) => {
         message: `Email ${email} is aleady taken.`,
         name: "EmailExistsError",
       });
+      // alert("Email already in use. Try a different one");
     }
     const user = await createUser({
       email,
