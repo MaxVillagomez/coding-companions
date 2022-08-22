@@ -63,6 +63,8 @@ const App = () => {
   const [price, setPrice] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState(null);
+  const [demoEmail, setDemoEmail] =useState("demo");
+  const [demoPassword, setDemoPassword] = useState("demo");
 
   const { productId } = useParams();
 
