@@ -3,7 +3,13 @@ import React, { useState, useEffect } from "react";
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 
-import { getAllProducts, getProductById, getMe, getUsers, addProduct } from "../axios-services";
+import {
+  getAllProducts,
+  getProductById,
+  getMe,
+  getUsers,
+  addProduct,
+} from "../axios-services";
 import {
   Homepage,
   Navbar,
@@ -18,7 +24,7 @@ import {
   AllUsers,
   AddProduct,
   EditProduct,
-  EditIndivProduct
+  EditIndivProduct,
 } from "./index";
 import "../style/App.css";
 import {
@@ -36,7 +42,7 @@ const App = () => {
   const [indivProduct, setIndivProduct] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [token, setToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cart, setCart] = useState(cartFromLocalStorage);
@@ -51,24 +57,23 @@ const App = () => {
   const [photo, setPhoto] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [error, setError] = useState(null)
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [error, setError] = useState(null);
 
- 
   const { productId } = useParams();
 
   useEffect(() => {
     if (localStorage.token) {
       setToken(localStorage.token);
       setIsLoggedIn(!isLoggedIn);
-      setIsAdmin(!isAdmin)
+      setIsAdmin(!isAdmin);
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
- 
+
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -85,20 +90,20 @@ const App = () => {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
-      if(token) {
-      try {
-        const data = await getUsers(token);
-        console.log("This is the users data: ", data);
-        setUsers(data.users);
-        // console.log("This is the photo data", data[0].photo);
-      } catch (error) {
-        console.error(error);
+      if (token) {
+        try {
+          const data = await getUsers(token);
+          console.log("This is the users data: ", data);
+          setUsers(data.users);
+          // console.log("This is the photo data", data[0].photo);
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        return;
       }
-    } else {
-      return
-    }
-  }
-  fetchAllUsers();
+    };
+    fetchAllUsers();
   }, [token]);
 
   const handleClick = (item) => {
@@ -150,7 +155,13 @@ const App = () => {
   return (
     <div className="app-container">
       <Router>
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setToken={setToken} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
+        <Navbar
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          setToken={setToken}
+          isAdmin={isAdmin}
+          setIsAdmin={setIsAdmin}
+        />
         <Routes>
           <Route
             path="/"
@@ -241,22 +252,32 @@ const App = () => {
           />
           <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/users" element={<AllUsers users={users} setUsers={setUsers}/>} />
-          <Route path="/admin/createproduct" element={
-            <AddProduct
-              token={token}
-              name={name}
-              setName={setName}
-              description={description}
-              setDescription={setDescription}
-              photo={photo}
-              setPhoto={setPhoto}
-              quantity={quantity}
-              setQuantity={setQuantity}
-              price={price}
-              setPrice={setPrice}
-            />}/>
-            <Route path="/admin/products/:productId" element={<EditIndivProduct
+          <Route
+            path="/admin/users"
+            element={<AllUsers users={users} setUsers={setUsers} />}
+          />
+          <Route
+            path="/admin/createproduct"
+            element={
+              <AddProduct
+                token={token}
+                name={name}
+                setName={setName}
+                description={description}
+                setDescription={setDescription}
+                photo={photo}
+                setPhoto={setPhoto}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                price={price}
+                setPrice={setPrice}
+              />
+            }
+          />
+          <Route
+            path="/admin/products/:productId"
+            element={
+              <EditIndivProduct
                 token={token}
                 products={products}
                 name={name}
@@ -271,16 +292,21 @@ const App = () => {
                 setPrice={setPrice}
                 indivProduct={indivProduct}
                 setIndivProduct={setIndivProduct}
-            />}/>
-            <Route path="/admin/products" element={
-              <EditProduct
-                products={products}
-            />} />
+              />
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={<EditProduct products={products} />}
+          />
         </Routes>
       </Router>
 
       <footer className="footer-container">
-        <p>Website built and designed by Luke Bourneuf, Austin Benton, and Max Villagomez</p>
+        <p>
+          Website built and designed by Luke Bourneuf, Austin Benton, and Max
+          Villagomez
+        </p>
       </footer>
     </div>
   );
