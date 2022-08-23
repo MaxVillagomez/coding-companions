@@ -7,6 +7,7 @@ const Footer = () => {
         <div className="footer-text-container">
         </div>
         <a href="https://github.com/Grace-Hopper-Capstone-Group-3/Grace-Shopper-Group-3.git" target="_blank">
+
           <div className="github-logo">
             <img src={githublogo}/>
           </div>
