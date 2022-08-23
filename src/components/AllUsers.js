@@ -18,7 +18,8 @@ const AllUsers = ({users, setUsers}) => {
                     )
                 })
             ):(
-                <h1>You must be an admin to view all the users.</h1>
+                <h1>Must be an Admin to view User data!</h1>
+
             )}
         </div>
     )

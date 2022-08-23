@@ -153,6 +153,7 @@ a > img {
   width: 100%;
   align-items: center;
   flex-direction: column;
+  margin: 0px;
 }
 
 .login-form {
@@ -270,6 +271,7 @@ button {
   border-radius: 4px;
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
+  margin-bottom: 10px;
 }
 
 .cart-button {
@@ -456,6 +458,15 @@ button {
   padding: 40px;
 }
 
+.edit-form-container{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  margin: 0px;
+  justify-content:space-around;
+}
+
 .edit-product-form {
   display: flex;
   flex-direction: column;
@@ -467,6 +478,7 @@ button {
   color: #f1faee;
   border-radius: 7px;
   padding: 40px;
+  margin-bottom: 40px;
 }
 
 .edit-and-delete-button-container {
@@ -494,7 +506,7 @@ button {
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
   color:#f1faee;
   background-color: #e63946;
 }
