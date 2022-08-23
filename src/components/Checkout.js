@@ -10,6 +10,9 @@ const Checkout = ({ cardNumber, setCardNumber, cart, setCart }) => {
   };
   return (
     <div className="checkout-container">
+      <div className="checkout-text-container">
+        <h1 className="checkout-text">Please enter your information below.</h1>
+      </div>
       <div className="checkout-form-container">
         <div className="credentials">
           <form className="credentials-form">

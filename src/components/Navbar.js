@@ -39,7 +39,7 @@ const Navbar = ({
             </Link>
           ) : null}
           {isLoggedIn ? (
-            <button onClick={logOut}>Logout</button>
+            <button className="logout-button" onClick={logOut}>Logout</button>
           ) : (
             <Link className="nav-link" to="/login">
               Login
