@@ -16,13 +16,15 @@ const Cart = ({
     subTotal += item.price * item.quantity;
   });
 
+  
+
   return (
     <div className="cart-container">
       {cart.map((item) => (
         <div className="cart-box" key={item.id}>
           <h4>{item.name}</h4>
           <img className="cart-image" src={item.photo} />
-          <h5>{item.price * item.quantity}</h5>
+          <h5>${Math.round((item.price * item.quantity) * 100) / 100}</h5>
           <button className="cart-button" onClick={() => handleClick(item)}>
             +
           </button>
@@ -38,7 +40,7 @@ const Cart = ({
           </button>
         </div>
       ))}
-      {subTotal ? <h5 className="subtotal">Subtotal {subTotal}</h5> : null}
+      {subTotal ? <h5 className="subtotal">Subtotal ${subTotal.toFixed(2)}</h5> : null}
       {subTotal ? (
         <Link className="checkout-button-container" to="/checkout">
           <button className="checkout-button">Proceed to Checkout</button>

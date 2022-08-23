@@ -81,7 +81,7 @@ const EditIndivProduct = (props) => {
 
 
     return(
-        <div className="form-container">
+        <div className="edit-form-container">
             <div className="all-products">
                 {indivProduct && indivProduct.id ? (
                 <div className="indiv-product" key={productId.id}>

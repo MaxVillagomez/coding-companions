@@ -44,7 +44,6 @@ const Login = (props) => {
     event.preventDefault();
     setEmail("demo");
     setPassword("demo");
-    setIsLoggedIn(true);
   }
 
   return (
@@ -71,7 +70,7 @@ const Login = (props) => {
         </label>
         <div className="login-button-and-link-container">
           <button type="submit">Login</button>
-          <button type="submit" onClick={handleDemoSubmit}>Demo Login</button>
+          <button type="submit" onClick={handleDemoSubmit}>Demo User</button>
           <Link className="register-link" to="/register">
             New User? Register here!
           </Link>
