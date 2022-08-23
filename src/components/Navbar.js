@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ isLoggedIn, setToken, setIsLoggedIn, isAdmin, setIsAdmin }) => {
-  
+const Navbar = ({
+  isLoggedIn,
+  setToken,
+  setIsLoggedIn,
+  isAdmin,
+  setIsAdmin,
+  countCartItems,
+  cart,
+}) => {
   function logOut() {
     delete localStorage.token;
     setToken("");
@@ -13,7 +20,9 @@ const Navbar = ({ isLoggedIn, setToken, setIsLoggedIn, isAdmin, setIsAdmin }) =>
   return (
     <header>
       <nav className="nav-bar">
-        <h3 className="site-name">Coding Companions</h3>
+        <Link to="/">
+          <h3 className="site-name">Coding Companions</h3>
+        </Link>
         <div className="nav-link-container">
           <Link className="nav-link" to="/">
             Home
@@ -22,14 +31,13 @@ const Navbar = ({ isLoggedIn, setToken, setIsLoggedIn, isAdmin, setIsAdmin }) =>
             Products
           </Link>
           <Link className="nav-link" to="/cart">
-            Cart
+            Cart ({countCartItems})
           </Link>
-          { isAdmin
-            ? ( <Link className="nav-link" to="/admin">
-                  Admin
-                </Link>)
-            : null
-          }
+          {isAdmin ? (
+            <Link className="nav-link" to="/admin">
+              Admin
+            </Link>
+          ) : null}
           {isLoggedIn ? (
             <button onClick={logOut}>Logout</button>
           ) : (
