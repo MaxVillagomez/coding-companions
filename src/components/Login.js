@@ -69,8 +69,8 @@ const Login = (props) => {
           ></input>
         </label>
         <div className="login-button-and-link-container">
-          <button type="submit">Login</button>
-          <button type="submit" onClick={handleDemoSubmit}>Demo User</button>
+          <button className="login-button" type="submit">Login</button>
+          <button className="demo-button" type="submit" onClick={handleDemoSubmit}>Demo User</button>
           <Link className="register-link" to="/register">
             New User? Register here!
           </Link>
