@@ -27,9 +27,8 @@ import {
   AddProduct,
   EditProduct,
   EditIndivProduct,
-  Footer
+  Footer,
 } from "./index";
-
 
 import {
   BrowserRouter as Router,
@@ -63,7 +62,7 @@ const App = () => {
   const [price, setPrice] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState(null);
-  const [demoEmail, setDemoEmail] =useState("demo");
+  const [demoEmail, setDemoEmail] = useState("demo");
   const [demoPassword, setDemoPassword] = useState("demo");
 
   const { productId } = useParams();
@@ -167,6 +166,8 @@ const App = () => {
           setToken={setToken}
           isAdmin={isAdmin}
           setIsAdmin={setIsAdmin}
+          countCartItems={cart.length}
+          cart={cart}
         />
         <Routes>
           <Route
@@ -308,7 +309,7 @@ const App = () => {
         </Routes>
       </Router>
 
-      <Footer isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>
+      <Footer isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
     </div>
   );
 };
