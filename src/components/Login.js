@@ -24,7 +24,7 @@ const Login = (props) => {
 
     const data = await login({ email, password });
     const { user, token } = data;
-    // if (data.error) console.log("this is the data: ", user);
+
     if (token) {
       localStorage.token = token;
       setIsLoggedIn(true);

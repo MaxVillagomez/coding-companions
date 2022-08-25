@@ -11,7 +11,7 @@ export async function getUsers(token) {
     return users;
   } catch (err) {
     console.error(err);
-    throw error;
+    next(error);
   }
 }
 
@@ -22,6 +22,7 @@ export async function getAllProducts() {
     return data;
   } catch (error) {
     console.error(error);
+    next(error);
   }
 }
 
@@ -32,6 +33,7 @@ export async function getProductById(productId) {
     return data;
   } catch (error) {
     console.error(error);
+    next(error);
   }
 }
 
@@ -66,7 +68,7 @@ export async function getMe(token) {
     return data;
   } catch (error) {
     console.error("Trouble getting me");
-    throw error;
+    next(error);
   }
 }
 
@@ -91,7 +93,7 @@ export async function register({
     return data;
   } catch (error) {
     console.error("Trouble registering");
-    throw error;
+    next(error);
   }
 }
 
@@ -118,7 +120,7 @@ export async function addProduct({
     return data;
   } catch (error) {
     console.error("Trouble adding product...");
-    throw error;
+    next(error);
   }
 }
 
@@ -145,7 +147,7 @@ export async function editProduct({
     return data;
   } catch (error) {
     console.error("Trouble editing product...");
-    throw error;
+    next(error);
   }
 }
 
@@ -160,6 +162,6 @@ export async function deleteProduct(token, productId) {
 
     return data;
   } catch (error) {
-    throw error;
+    next(error);
   }
 }

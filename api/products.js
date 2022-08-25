@@ -15,7 +15,7 @@ apiRouter.get("/", async (req, res, next) => {
     const products = await getAllProducts();
     res.send(products);
   } catch (error) {
-    throw error;
+    next(error);
   }
 });
 
@@ -35,7 +35,7 @@ apiRouter.get("/:productId", async (req, res, next) => {
     }
   } catch (error) {
     console.error("Trouble getting product by Id");
-    throw error;
+    next(error);
   }
 });
 
@@ -53,7 +53,7 @@ apiRouter.post("/", requireAdmin, async (req, res, next) => {
     res.send(product);
   } catch (error) {
     console.error("Trouble creating new product");
-    throw error;
+    next(error);
   }
 });
 
@@ -77,7 +77,7 @@ apiRouter.patch("/:productId", requireAdmin, async (req, res, next) => {
     res.send(updatedProduct);
   } catch (error) {
     console.error("Trouble patching product");
-    throw error;
+    next(error);
   }
 });
 
@@ -92,7 +92,7 @@ apiRouter.delete("/:productId", requireAdmin, async (req, res, next) => {
     res.send(remove);
   } catch (error) {
     console.error("Trouble deleting product");
-    throw error;
+    next(error);
   }
 });
 
