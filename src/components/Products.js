@@ -7,7 +7,7 @@ const Products = ({ products, setProducts, handleClick }) => {
         {products && products.length ? (
           products.map((product) => {
             return (
-              <div className="all-products">
+              <div key={product.id} className="all-products">
                 <a
                   href={`/products/${product.id}`}
                   className="indiv-product"

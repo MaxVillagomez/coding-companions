@@ -26,9 +26,6 @@ const {
   getAllInactiveCarts,
   destroyIndividualCartItem,
   updateQuantityOfItem,
-
-  // declare your model imports here
-  // for example, User
 } = require("./");
 
 async function dropTables() {
@@ -134,10 +131,9 @@ async function createInitialUsers() {
       city: "Demo city",
       state: "DM",
       zip: "09878",
-      isAdmin: false
+      isAdmin: false,
     });
 
-    
     console.log("Finished creating users...");
   } catch (error) {
     console.error("Error creating initial users");
@@ -276,88 +272,19 @@ async function createInitialCategories() {
   }
 }
 
-// async function createInitialCartOrders() {
-//   try {
-//     const cart1 = await createCartOrder({
-//       userId: 1,
-//       active: true,
-//     });
-//     const cart2 = await createCartOrder({
-//       userId: 2,
-//       active: false,
-//     });
-//     const cart3 = await createCartOrder({
-//       userId: 3,
-//       active: true,
-//     });
-//   } catch (error) {
-//     console.error("Error creating initial cart orders...");
-//     throw error;
-//   }
-// }
-
-// async function createInitialIndividualCartItem() {
-//   try {
-//     console.log("Creating intial items");
-//     const item1 = await createIndividualCartItem({
-//       productId: 1,
-//       priceAtPurchase: 14.99,
-//       cartId: 1,
-//       quantity: 1,
-//     });
-
-//     // const item2 = await createIndividualCartItem({
-//     //   productId: 2,
-//     //   priceAtPurchase: 123456.99,
-//     //   cartId: 1,
-//     //   quantity: 2,
-//     // });
-
-//     const item3 = createIndividualCartItem({
-//       productId: 3,
-//       priceAtPurchase: 13.99,
-//       cartId: 2,
-//       quantity: 1,
-//     });
-
-//     const item4 = createIndividualCartItem({
-//       productId: 3,
-//       priceAtPurchase: 13.99,
-//       cartId: 3,
-//       quantitiy: 3,
-//     });
-//     console.log("Finished creating initial items");
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// }
-
 async function buildTables() {
   try {
     client.connect();
 
-    // drop tables in correct order
     await dropTables();
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
     await createInitialCategories();
-    // build tables in correct order
   } catch (error) {
     throw error;
   }
 }
-
-// async function populateInitialData() {
-//   try {
-//     // create useful starting data by leveraging your
-//     // Model.method() adapters to seed your db, for example:
-//     // const user1 = await User.createUser({ ...user info goes here... })
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 
 buildTables()
   .then(testDB)
@@ -402,19 +329,9 @@ async function testDB() {
     const category2Name = await getCategoryByName("Villains");
     console.log("Get category by name result", category2Name);
 
-    // console.log("Calling update Product at ID 3");
-    // const update = await updateProduct(3, {
-    //   name: "Updated rocket name",
-    //   description: "Updated rocket description",
-    //   quantity: 100,
-    //   price: 99.99,
-    // });
-    // console.log("Updated Product Result", update);
-
     console.log("Calling delete product at ID 4");
     const remove = await destroyProduct(4);
     console.log("Delete result", remove);
-
   } catch (error) {
     console.error("Error testing database");
     throw error;

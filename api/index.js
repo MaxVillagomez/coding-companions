@@ -26,14 +26,14 @@ apiRouter.use(async (req, res, next) => {
     const token = auth.slice(prefix.length);
     try {
       const userToken = jwt.verify(token, JWT_SECRET);
-      const id = userToken && userToken.id
+      const id = userToken && userToken.id;
       console.log("this is api index id: ", id);
       if (!id) {
         res.status(401);
         next({
           name: "AuthorizationHeaderError",
           message: `Authorization token must start with ${prefix}`,
-        })
+        });
       } else {
         req.user = await getUserById(id);
         next();
@@ -41,7 +41,7 @@ apiRouter.use(async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  } 
+  }
 });
 
 apiRouter.use((req, res, next) => {
@@ -50,9 +50,6 @@ apiRouter.use((req, res, next) => {
   }
   next();
 });
-
-// const { Router } = require('express');
-// place your routers here
 
 const usersRouter = require("./users");
 apiRouter.use("/users", usersRouter);

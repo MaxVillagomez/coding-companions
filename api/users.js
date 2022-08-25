@@ -36,7 +36,6 @@ apiRouter.post("/register", async (req, res, next) => {
         message: `Email ${email} is aleady taken.`,
         name: "EmailExistsError",
       });
-      // alert("Email already in use. Try a different one");
     }
     const user = await createUser({
       email,
@@ -68,8 +67,7 @@ apiRouter.post("/login", async (req, res, next) => {
   }
   try {
     const user = await getUser({ email, password });
-    // const hashedPassword = user.password;
-    // const isValid = await bcrypt.compare(password, hashedPassword);
+
     console.log("This is our secret", JWT_SECRET);
     if (user) {
       const token = jwt.sign({ id: user.id, email }, JWT_SECRET);
