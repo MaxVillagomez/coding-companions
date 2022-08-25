@@ -1,4 +1,3 @@
-// grab our db client connection to use with our adapters
 const client = require("../client");
 const bcrypt = require("bcrypt");
 
@@ -35,7 +34,7 @@ async function createUser({
 async function getUser({ email, password }) {
   try {
     const user = await getUserByEmail(email);
-    // console.log("This is the user in DB", user);
+
     const hashedPassword = user.password;
     const isValid = await bcrypt.compare(password, hashedPassword);
 
@@ -112,7 +111,6 @@ async function getUserByEmail(email) {
 }
 
 module.exports = {
-  // add your database adapter fns here
   createUser,
   getAllUsers,
   getUserById,

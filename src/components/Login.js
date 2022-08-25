@@ -24,7 +24,7 @@ const Login = (props) => {
 
     const data = await login({ email, password });
     const { user, token } = data;
-    if (data.error) console.log("this is the data: ", user);
+    // if (data.error) console.log("this is the data: ", user);
     if (token) {
       localStorage.token = token;
       setIsLoggedIn(true);
@@ -40,7 +40,7 @@ const Login = (props) => {
     window.location.reload(false);
   }
 
-  async function handleDemoSubmit (event) {
+  async function handleDemoSubmit(event) {
     event.preventDefault();
     setEmail("demo");
     setPassword("demo");
@@ -69,8 +69,16 @@ const Login = (props) => {
           ></input>
         </label>
         <div className="login-button-and-link-container">
-          <button className="login-button" type="submit">Login</button>
-          <button className="demo-button" type="submit" onClick={handleDemoSubmit}>Demo User</button>
+          <button className="login-button" type="submit">
+            Login
+          </button>
+          <button
+            className="demo-button"
+            type="submit"
+            onClick={handleDemoSubmit}
+          >
+            Demo User
+          </button>
           <Link className="register-link" to="/register">
             New User? Register here!
           </Link>

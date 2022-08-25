@@ -34,8 +34,7 @@ const Register = ({
       if (result) {
         const token = result.token;
         localStorage.setItem("token", token);
-        console.log("This is token in register component: ", token);
-        console.log("This the user data from register component: ", result);
+
         navigate("/login", { replace: true });
       }
     } else if (password !== confirmPassword) {

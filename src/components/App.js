@@ -84,8 +84,6 @@ const App = () => {
       try {
         const data = await getAllProducts();
         setProducts(data);
-
-        // console.log("This is the photo data", data[0].photo);
       } catch (error) {
         console.error(error);
       }
@@ -98,9 +96,8 @@ const App = () => {
       if (token) {
         try {
           const data = await getUsers(token);
-          console.log("This is the users data: ", data);
+
           setUsers(data.users);
-          // console.log("This is the photo data", data[0].photo);
         } catch (error) {
           console.error(error);
         }
@@ -131,7 +128,7 @@ const App = () => {
   const handleDecClick = (item) => {
     if (item.quantity <= 1) {
       let cartFilter = cart.filter((cartItem) => cartItem.name !== item.name);
-      console.log(cartFilter);
+
       setCart(cartFilter);
     }
     if (cart.some((cartItem) => cartItem.name === item.name)) {
@@ -153,7 +150,7 @@ const App = () => {
 
   const handleClickRemove = (item) => {
     const items = cart.filter((cartItem) => cartItem.name !== item.name);
-    console.log(items);
+
     setCart(items);
   };
 

@@ -1,17 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const EditProduct = ({products}) => {
-    
-    const navigate = useNavigate();
+const EditProduct = ({ products }) => {
+  const navigate = useNavigate();
 
-    return (
-        <>
+  return (
+    <>
       <div key={products.id} className="all-products-container">
         {products && products.length ? (
-            products.map((product) => {
+          products.map((product) => {
             return (
-              <div className="all-products">
+              <div key={product.id} className="all-products">
                 <a
                   href={`/admin/products/${product.id}`}
                   className="indiv-product"
@@ -35,7 +34,7 @@ const EditProduct = ({products}) => {
         )}
       </div>
     </>
-    )
-}
+  );
+};
 
 export default EditProduct;
