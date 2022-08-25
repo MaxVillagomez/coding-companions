@@ -35,7 +35,7 @@ const EditIndivProduct = (props) => {
           price,
           token,
         });
-
+        window.location.reload(false);
         return data;
       } catch (error) {
         throw error;
@@ -50,6 +50,7 @@ const EditIndivProduct = (props) => {
     if (token) {
       try {
         const data = await deleteProduct(token, productId);
+        window.location.reload(false);
         return data;
       } catch (error) {
         throw error;

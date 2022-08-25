@@ -156,7 +156,6 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Router>
         <Navbar
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
@@ -304,7 +303,6 @@ const App = () => {
             element={<EditProduct products={products} />}
           />
         </Routes>
-      </Router>
 
       <Footer isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
     </div>

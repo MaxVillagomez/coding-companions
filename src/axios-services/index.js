@@ -93,7 +93,7 @@ export async function register({
     return data;
   } catch (error) {
     console.error("Trouble registering");
-    next(error);
+    throw error;
   }
 }
 

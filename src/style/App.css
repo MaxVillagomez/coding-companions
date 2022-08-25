@@ -286,6 +286,10 @@ button {
   justify-content: center;
 }
 
+.item-name-cart {
+  width: 10%;
+}
+
 .checkout-button-container {
   display: flex;
   justify-content: flex-end;
