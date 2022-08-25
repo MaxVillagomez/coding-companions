@@ -33,7 +33,7 @@ const AddProduct = (props) => {
         setPhoto("");
         setQuantity(0);
         setPrice(0);
-
+        window.location.reload(false);
         return data;
       } catch (error) {
         throw error;

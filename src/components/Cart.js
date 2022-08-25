@@ -17,7 +17,7 @@ const Cart = ({
     <div className="cart-container">
       {cart.map((item) => (
         <div className="cart-box" key={item.id}>
-          <h4>{item.name}</h4>
+          <h4 className="item-name-cart">{item.name}</h4>
           <img className="cart-image" src={item.photo} />
           <h5>${Math.round(item.price * item.quantity * 100) / 100}</h5>
           <button className="cart-button" onClick={() => handleClick(item)}>
