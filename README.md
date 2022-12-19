@@ -51,7 +51,8 @@ OR
 * Run app in development mode: 
 ``` npm run start:dev ```
 
-
+* UBUNTU ONLY - Restart database each new coding session: 
+```sudo service postgresql restart```
 
 
 
